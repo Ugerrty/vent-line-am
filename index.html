@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vent-Line — вентиляция, которой не видно. Проект, производство, монтаж — Ереван</title>
-<meta name="description" content="Российский производитель щелевых решёток скрытого монтажа выходит в Армению: проектирование, производство, форсуночное увлажнение и монтаж — полный цикл для застройщиков Еревана.">
+<title>Vent-Line — вентиляция, которой не видно</title>
+<meta name="description" content="Производитель щелевых решёток скрытого монтажа: проектирование, производство, увлажнение и монтаж. Объекты в Москве, Дубае, Бангкоке и городах СНГ. Теперь — Ереван.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<meta property="og:title" content="Vent-Line — вентиляция, которой не видно">
-<meta property="og:description" content="Полный цикл вентиляции для застройщиков Еревана: проект, производство, увлажнение, монтаж.">
+<meta property="og:title" content="Vent-Line — вентиляция, которой не видно">
+<meta property="og:description" content="Щелевые решётки скрытого монтажа: полный цикл от производителя. Москва · Дубай · Бангкок · Ереван.">
 <meta property="og:url" content="https://ugerrty.github.io/vent-line-am/">
 <meta property="og:image" content="https://ugerrty.github.io/vent-line-am/assets/render-hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Armenian:wght@400&family=Noto+Sans+Armenian:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://ugerrty.github.io/vent-line-am/">
-<link rel="stylesheet" href="css/main.css?v=2">
+<link rel="stylesheet" href="css/main.css?v=4">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -23,18 +23,26 @@
   "url": "https://ugerrty.github.io/vent-line-am/",
   "logo": "https://ugerrty.github.io/vent-line-am/assets/favicon.png",
   "foundingDate": "2011",
-  "areaServed": ["AM", "RU"],
+  "areaServed": ["RU", "AE", "TH", "AM"],
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+7-499-283-08-65",
     "contactType": "sales",
-    "availableLanguage": ["ru", "hy", "en"]
+    "availableLanguage": ["ru", "en"]
   },
   "sameAs": ["https://vent-line.ru", "https://t.me/VentLine1"]
 }
 </script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 <script>
-/* ранний гейт js-класса + страховка: если main.js не поднялся за 3.5 с — показать контент статично */
+/* ранний гейт js-класса + страховка: если main.js не поднялся за 3.5 с — показать контент статично */
 document.documentElement.classList.add('js');
 setTimeout(function(){ if(!window.__vlReady) document.documentElement.classList.remove('js'); }, 3500);
 /* страховка прелоадера: что бы ни случилось, через 6 с он исчезает */
@@ -45,7 +53,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 
 <a class="skip" href="#main" data-i18n="skip">К содержанию</a>
 
-<!-- ══════════ ПРЕЛОАДЕР: линия раскрывается в щель ══════════ -->
+<!-- ══════════ ПРЕЛОАДЕР: золотая линия на синем ══════════ -->
 <div class="preloader" id="preloader" aria-hidden="true">
   <div class="preloader__counter" id="preloader-counter"><span id="preloader-mm">0</span>&nbsp;мм</div>
   <div class="preloader__line" id="preloader-line"></div>
@@ -53,7 +61,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
   <div class="preloader__panel preloader__panel--bottom"></div>
 </div>
 
-<!-- зерно бумаги -->
+<!-- зерно -->
 <div class="grain" aria-hidden="true"></div>
 
 <!-- кастомный курсор-щель -->
@@ -62,26 +70,25 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 <!-- ══════════ ХЕДЕР ══════════ -->
 <header class="header" id="header">
   <div class="header__inner">
-    <a class="header__logo" href="#hero" data-scroll aria-label="Vent-Line — наверх">
+    <a class="header__logo" href="#hero" data-scroll aria-label="Vent-Line — наверх">
       <svg class="header__mark" viewBox="0 0 632 671" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M632 0V7.33774L592.752 20.7903L591.074 24.8669C591.074 24.8669 404.561 500.193 344.849 652.248C327.07 606.998 139.214 128.004 98.9597 24.8669H81.516C146.595 189.152 303.253 584.577 337.469 671H294.531C232.471 512.83 141.563 282.505 76.1487 115.366L74.1359 110.067L67.0913 91.7224L39.2485 20.7903L0 7.33774V0H129.822C174.102 112.513 291.512 409.693 345.185 546.258L550.484 24.8669H533.04L344.514 505.9L324.051 453.312L502.514 0.407555H632V0Z"/>
       </svg>
-      <span class="header__wordmark">VENT LINE<em data-i18n="brand.tag">инженерия воздуха</em></span>
+      <span class="header__wordmark">VENT&nbsp;LINE<em data-i18n="brand.tag">инженерия воздуха</em></span>
     </a>
     <nav class="header__nav" aria-label="Разделы страницы">
-      <a href="#market" data-scroll data-i18n="nav.market">Рынок</a>
-      <a href="#system" data-scroll data-i18n="nav.system">Система</a>
+      <a href="#brand" data-scroll data-i18n="nav.brand">Бренд</a>
+      <a href="#line" data-scroll data-i18n="nav.line">Линия</a>
       <a href="#product" data-scroll data-i18n="nav.product">Продукт</a>
       <a href="#process" data-scroll data-i18n="nav.process">Процесс</a>
-      <a href="#trust" data-scroll data-i18n="nav.trust">О нас</a>
+      <a href="#trust" data-scroll data-i18n="nav.trust">Адреса</a>
     </nav>
     <div class="header__side">
       <div class="lang" role="group" aria-label="Язык страницы">
         <button class="lang__btn is-on" type="button" data-lang="ru" lang="ru" aria-label="Русский" aria-pressed="true">RU</button>
         <button class="lang__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
-        <button class="lang__btn" type="button" data-lang="hy" lang="hy" aria-label="Հայերեն" aria-pressed="false">ՀԱՅ</button>
       </div>
-      <a class="btn btn--solid btn--sm" href="#cta" data-scroll data-i18n="cta.headBtn">Рассчитать проект</a>
+      <a class="btn btn--gold btn--sm" href="#cta" data-scroll data-i18n="cta.headBtn">Рассчитать проект</a>
       <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu" data-i18n-aria="menu.open"><span></span><span></span></button>
     </div>
   </div>
@@ -90,13 +97,13 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 <!-- мобильное меню -->
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__nav" aria-label="Меню">
-    <a href="#market" data-scroll><i>01</i><span data-i18n="nav.market">Рынок</span></a>
-    <a href="#system" data-scroll><i>02</i><span data-i18n="nav.system">Система</span></a>
-    <a href="#product" data-scroll><i>03</i><span data-i18n="nav.product">Продукт</span></a>
-    <a href="#silence" data-scroll><i>04</i><span data-i18n="nav.silence">Тишина</span></a>
-    <a href="#climate" data-scroll><i>05</i><span data-i18n="nav.climate">Климат</span></a>
+    <a href="#brand" data-scroll><i>01</i><span data-i18n="nav.brand">Бренд</span></a>
+    <a href="#line" data-scroll><i>02</i><span data-i18n="nav.line">Линия</span></a>
+    <a href="#system" data-scroll><i>03</i><span data-i18n="nav.system">Система</span></a>
+    <a href="#product" data-scroll><i>04</i><span data-i18n="nav.product">Продукт</span></a>
+    <a href="#silence" data-scroll><i>05</i><span data-i18n="nav.silence">Тишина</span></a>
     <a href="#process" data-scroll><i>06</i><span data-i18n="nav.process">Процесс</span></a>
-    <a href="#trust" data-scroll><i>07</i><span data-i18n="nav.trust">О нас</span></a>
+    <a href="#trust" data-scroll><i>07</i><span data-i18n="nav.trust">Адреса</span></a>
     <a href="#cta" data-scroll><i>→</i><span data-i18n="nav.contact">Контакт</span></a>
   </nav>
   <div class="menu__foot">
@@ -107,120 +114,89 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 
 <!-- боковой индекс секций -->
 <nav class="dex" id="dex" aria-label="Навигация по секциям">
-  <a href="#market" data-scroll data-dex="market"><i>01</i><span data-i18n="nav.market">Рынок</span></a>
-  <a href="#system" data-scroll data-dex="system"><i>02</i><span data-i18n="nav.system">Система</span></a>
-  <a href="#product" data-scroll data-dex="product"><i>03</i><span data-i18n="nav.product">Продукт</span></a>
-  <a href="#silence" data-scroll data-dex="silence"><i>04</i><span data-i18n="nav.silence">Тишина</span></a>
-  <a href="#climate" data-scroll data-dex="climate"><i>05</i><span data-i18n="nav.climate">Климат</span></a>
+  <a href="#brand" data-scroll data-dex="brand"><i>01</i><span data-i18n="nav.brand">Бренд</span></a>
+  <a href="#line" data-scroll data-dex="line"><i>02</i><span data-i18n="nav.line">Линия</span></a>
+  <a href="#system" data-scroll data-dex="system"><i>03</i><span data-i18n="nav.system">Система</span></a>
+  <a href="#product" data-scroll data-dex="product"><i>04</i><span data-i18n="nav.product">Продукт</span></a>
+  <a href="#silence" data-scroll data-dex="silence"><i>05</i><span data-i18n="nav.silence">Тишина</span></a>
   <a href="#process" data-scroll data-dex="process"><i>06</i><span data-i18n="nav.process">Процесс</span></a>
-  <a href="#trust" data-scroll data-dex="trust"><i>07</i><span data-i18n="nav.trust">О нас</span></a>
+  <a href="#trust" data-scroll data-dex="trust"><i>07</i><span data-i18n="nav.trust">Адреса</span></a>
   <a href="#cta" data-scroll data-dex="cta"><i>→</i><span data-i18n="nav.contact">Контакт</span></a>
 </nav>
 
 <main id="main">
 
-<!-- ══════════ HERO ══════════ -->
+<!-- ══════════ HERO: золото на синем ══════════ -->
 <section class="hero" id="hero">
-  <canvas id="air-canvas" aria-hidden="true"></canvas>
+  <div class="hero__beam" aria-hidden="true"></div>
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <img class="hero__fallback" src="assets/render-hero.jpg" alt="" aria-hidden="true">
   <div class="hero__inner">
-    <p class="kicker reveal"><span class="kicker__paren">(</span> <span data-i18n="hero.kicker">Производитель щелевых решёток · полный цикл</span>&nbsp;<span class="kicker__paren">)</span></p>
+    <p class="kicker kicker--hero reveal"><span data-i18n="hero.kicker">Производитель щелевых решёток скрытого монтажа</span></p>
     <h1 class="hero__title">
       <span class="hline"><span class="hline__in" data-i18n="hero.h1a">Вентиляция,</span></span>
       <span class="hline"><span class="hline__in" data-i18n="hero.h1b">которой <em>не&nbsp;видно</em></span></span>
     </h1>
     <div class="hero__row">
-      <p class="hero__sub reveal" data-i18n="hero.sub">Проектируем, производим и монтируем инженерные системы вентиляции и увлажнения — от первого чертежа до тихого воздуха в готовой квартире. Производство — Московская область. Монтаж и сопровождение — Ереван.</p>
+      <p class="hero__sub reveal" data-i18n="hero.sub">Проект, производство, увлажнение и монтаж&nbsp;— полный цикл от производителя, которому доверяют лучшие адреса Москвы, Дубая и Бангкока.</p>
       <div class="hero__cta reveal">
-        <a class="btn btn--solid" href="#cta" data-scroll data-magnet data-i18n="hero.btn1">Рассчитать проект</a>
-        <a class="btn btn--ghost" href="#system" data-scroll data-magnet data-i18n="hero.btn2">Как устроена система</a>
+        <a class="btn btn--gold" href="#cta" data-scroll data-magnet data-i18n="hero.btn1">Рассчитать проект</a>
+        <a class="btn btn--ghostlight" href="#line" data-scroll data-magnet data-i18n="hero.btn2">Смотреть линию</a>
       </div>
     </div>
   </div>
   <div class="hero__meta mono reveal" aria-hidden="true">
-    <span>40.1872°&nbsp;N&nbsp;·&nbsp;44.5152°&nbsp;E — YEREVAN</span>
-    <a class="hero__meta-hint" href="#market" data-scroll tabindex="-1"><span data-i18n="hero.hint">листайте</span>&nbsp;↓</a>
+    <span>MOSCOW&nbsp;·&nbsp;DUBAI&nbsp;·&nbsp;BANGKOK&nbsp;·&nbsp;YEREVAN</span>
+    <a class="hero__meta-hint" href="#brand" data-scroll tabindex="-1"><span data-i18n="hero.hint">листайте</span>&nbsp;↓</a>
     <span class="hero__meta-r">SLOT&nbsp;20&nbsp;MM&nbsp;·&nbsp;AL&nbsp;6063&nbsp;·&nbsp;RAL&nbsp;ANY</span>
   </div>
-  <figure class="hero__strip reveal" aria-label="Интерьер со щелевой решёткой скрытого монтажа">
-    <div class="hero__strip-mask"><img src="assets/ceiling-3.jpg" alt="Потолок с щелевой вентиляционной решёткой скрытого монтажа" loading="eager" data-parallax></div>
-    <figcaption class="callout">
-      <i class="callout__line" aria-hidden="true"></i>
-      <span class="mono" data-i18n="hero.callout">щелевая решётка · видимая линия 20&nbsp;мм</span>
-    </figcaption>
-  </figure>
 </section>
 
 <!-- бегущая строка -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee__inner" id="marquee">
-    <span class="marquee__track" data-i18n="marquee.line">Проект — Производство — Поставка — Монтаж — Сервис —&nbsp;</span><span class="marquee__track" data-i18n="marquee.line" aria-hidden="true">Проект — Производство — Поставка — Монтаж — Сервис —&nbsp;</span>
+    <span class="marquee__track" data-i18n="marquee.line">Проект&nbsp;— Производство&nbsp;— Поставка&nbsp;— Монтаж&nbsp;— Сервис&nbsp;—&nbsp;</span><span class="marquee__track" data-i18n="marquee.line" aria-hidden="true">Проект&nbsp;— Производство&nbsp;— Поставка&nbsp;— Монтаж&nbsp;— Сервис&nbsp;—&nbsp;</span>
   </div>
 </div>
 
-<!-- ══════════ 01 РЫНОК ══════════ -->
-<section class="sec sec--warm market" id="market">
+<!-- ══════════ 01 БРЕНД ══════════ -->
+<section class="sec brand" id="brand">
   <div class="sec__inner">
-    <p class="kicker kicker--num reveal"><i>01</i><span data-i18n="market.kicker">Рынок</span></p>
-    <h2 class="h2 reveal-lines" data-i18n="market.h2">Ереван строит как никогда</h2>
-    <p class="lead reveal" data-i18n="market.lead">Мы выходим на рынок, который растёт рекордными темпами, — и приносим сегмент, которого в Армении ещё нет: щелевую вентиляцию скрытого монтажа и форсуночное увлажнение от производителя.</p>
-    <div class="stats reveal">
-      <div class="stat">
-        <span class="stat__num"><b data-count="2270000">2&nbsp;270&nbsp;000</b></span>
-        <span class="stat__cap" data-i18n="market.s1">м² жилья введено в Армении в 2025 году</span>
-      </div>
-      <div class="stat">
-        <span class="stat__num"><i>+</i><b data-count="81">81</b><i>%</i></span>
-        <span class="stat__cap" data-i18n="market.s2">рост ввода жилья за год</span>
-      </div>
-      <div class="stat">
-        <span class="stat__num"><i>&gt;</i><b data-count="50">50</b><i>%</i></span>
-        <span class="stat__cap" data-i18n="market.s3">сделок в Ереване — новостройки</span>
-      </div>
-    </div>
-    <p class="foot mono reveal" data-i18n="market.src">По данным Статкомитета РА и отраслевых обзоров, 2025–2026</p>
-
-    <div class="niche reveal">
-      <table class="niche__table">
-        <caption class="niche__cap" data-i18n="market.nicheCap">Что сегодня можно купить в Армении — и чего нельзя</caption>
-        <thead>
-          <tr>
-            <th scope="col" data-i18n="market.colWhat">Возможность</th>
-            <th scope="col" data-i18n="market.col1">Решётки со склада</th>
-            <th scope="col" data-i18n="market.col2">Монтажные компании</th>
-            <th scope="col" class="is-us">Vent-Line</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row" data-i18n="market.r1">Щелевые решётки под размеры проекта</th>
-            <td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td class="is-us"><span class="yes" role="img" aria-label="да" data-i18n-aria="table.yes"></span></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="market.r2">Теневой профиль скрытого монтажа под шпаклёвку</th>
-            <td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td class="is-us"><span class="yes" role="img" aria-label="да" data-i18n-aria="table.yes"></span></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="market.r3">Форсуночное увлажнение высокого давления</th>
-            <td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td class="is-us"><span class="yes" role="img" aria-label="да" data-i18n-aria="table.yes"></span></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="market.r4">Проект, производство и монтаж одной командой</th>
-            <td><span class="no" role="img" aria-label="нет" data-i18n-aria="table.no">—</span></td><td><span class="half" data-i18n="market.half">только монтаж</span></td><td class="is-us"><span class="yes" role="img" aria-label="да" data-i18n-aria="table.yes"></span></td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="foot mono" data-i18n="market.nicheFoot">Исследование рынка, август 2026: локального производства щелевых решёток скрытого монтажа и профессионального форсуночного увлажнения в Армении нет.</p>
+    <p class="kicker kicker--num reveal"><i>01</i><span data-i18n="brandsec.kicker">Бренд</span></p>
+    <h2 class="h2 reveal-lines" data-i18n="brandsec.h2">Воздух&nbsp;— часть архитектуры</h2>
+    <p class="manifesto reveal" data-i18n="brandsec.lead">С 2011 года Vent-Line делает вентиляцию невидимой. Наши линии стоят в самых дорогих объектах Москвы, Дубая, Бангкока и городов СНГ&nbsp;— там, где архитектура не терпит лишних деталей. Теперь инженерная команда работает и в Ереване.</p>
+    <div class="geo reveal" role="group" aria-label="Города присутствия">
+      <div class="geo__city"><b data-i18n="geo.msk">Москва</b><span class="mono"><i data-clock data-tz="Europe/Moscow">—:—</i>&nbsp;·&nbsp;UTC+3</span></div>
+      <div class="geo__city"><b data-i18n="geo.dxb">Дубай</b><span class="mono"><i data-clock data-tz="Asia/Dubai">—:—</i>&nbsp;·&nbsp;UTC+4</span></div>
+      <div class="geo__city"><b data-i18n="geo.bkk">Бангкок</b><span class="mono"><i data-clock data-tz="Asia/Bangkok">—:—</i>&nbsp;·&nbsp;UTC+7</span></div>
+      <div class="geo__city"><b data-i18n="geo.evn">Ереван</b><span class="mono"><i data-clock data-tz="Asia/Yerevan">—:—</i>&nbsp;·&nbsp;UTC+4</span></div>
     </div>
   </div>
 </section>
 
-<div class="slit" aria-hidden="true"><i></i></div>
+<!-- ══════════ 02 ЛИНИЯ (3D-проезд) ══════════ -->
+<section class="line" id="line">
+  <div class="line__pin" id="line-pin">
+    <canvas id="line-canvas" aria-hidden="true"></canvas>
+    <img class="line__fallback" src="assets/render-spro2.jpg" alt="Профиль щелевой решётки Vent-Line крупным планом">
+    <div class="line__hud">
+      <p class="kicker kicker--num reveal"><i>02</i><span data-i18n="line.kicker">Линия</span></p>
+      <h2 class="h2 reveal-lines" data-i18n="line.h2">Непрерывная линия. Любой длины.</h2>
+      <p class="line__x reveal" data-i18n="line.x">Экструдированный алюминиевый профиль без видимых стыков. Проведите взглядом&nbsp;— как по готовому потолку.</p>
+    </div>
+    <div class="line__facts mono" aria-hidden="true">
+      <span>SLOT&nbsp;20–50&nbsp;MM</span>
+      <span>AL&nbsp;6063</span>
+      <span data-i18n="line.f3">RAL · анодирование · шпон</span>
+    </div>
+  </div>
+</section>
 
-<!-- ══════════ 02 СИСТЕМА ══════════ -->
-<section class="sec system" id="system">
+<!-- ══════════ 03 СИСТЕМА ══════════ -->
+<section class="sec sec--soft system" id="system">
   <div class="sec__inner">
-    <p class="kicker kicker--num reveal"><i>02</i><span data-i18n="system.kicker">Система</span></p>
-    <h2 class="h2 reveal-lines" data-i18n="system.h2">Вентиляция от А до Я — одной командой</h2>
+    <p class="kicker kicker--num reveal"><i>03</i><span data-i18n="system.kicker">Система</span></p>
+    <h2 class="h2 reveal-lines" data-i18n="system.h2">Вентиляция от А до Я&nbsp;— одной командой</h2>
     <p class="lead reveal" data-i18n="system.lead">Застройщику не нужно собирать цепочку из пяти подрядчиков. Мы закрываем инженерную часть целиком и отвечаем за результат одним договором.</p>
   </div>
   <div class="deck">
@@ -229,7 +205,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <span class="card__num" aria-hidden="true">01</span>
         <div class="card__body">
           <h3 class="card__title" data-i18n="system.c1t">Проектирование</h3>
-          <p class="card__text" data-i18n="system.c1x">Раздел вентиляции под ваш проект: воздухообмен, аэродинамика, спецификации. Полный пакет документации за 1&nbsp;день — КП, чертежи DWG, 3D-модели и BIM-семейства Revit (RFA).</p>
+          <p class="card__text" data-i18n="system.c1x">Раздел вентиляции под ваш проект: воздухообмен, аэродинамика, спецификации. Полный пакет документации за 1&nbsp;день&nbsp;— КП, чертежи DWG, 3D-модели и BIM-семейства Revit (RFA).</p>
           <span class="card__stamp mono">RFA&nbsp;·&nbsp;DWG&nbsp;·&nbsp;PDF</span>
         </div>
         <figure class="card__media"><img src="assets/render-hero.jpg" alt="Рендер щелевой решётки Vent-Line" loading="lazy"></figure>
@@ -240,7 +216,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <span class="card__num" aria-hidden="true">02</span>
         <div class="card__body">
           <h3 class="card__title" data-i18n="system.c2t">Решётки</h3>
-          <p class="card__text" data-i18n="system.c2x">Собственное производство щелевых решёток скрытого монтажа: экструдированный алюминий, порошковая окраска в любой цвет RAL, анодирование, шпон. Непрерывные линии любой длины. Изготовление — от&nbsp;5&nbsp;дней.</p>
+          <p class="card__text" data-i18n="system.c2x">Собственное производство щелевых решёток скрытого монтажа: экструдированный алюминий, порошковая окраска в любой цвет RAL, анодирование, шпон. Непрерывные линии любой длины. Изготовление&nbsp;— от&nbsp;5&nbsp;дней.</p>
           <span class="card__stamp mono">AL&nbsp;6063&nbsp;·&nbsp;RAL&nbsp;ANY&nbsp;·&nbsp;5+&nbsp;DAYS</span>
         </div>
         <figure class="card__media"><img src="assets/render-spro2.jpg" alt="Профиль щелевой решётки S PRO" loading="lazy"></figure>
@@ -251,7 +227,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <span class="card__num" aria-hidden="true">03</span>
         <div class="card__body">
           <h3 class="card__title" data-i18n="system.c3t">Увлажнение</h3>
-          <p class="card__text" data-i18n="system.c3x">Форсуночное увлажнение высокого давления — новое направление для сухого климата Еревана. Система невидима так же, как решётки: форсунки скрыты, влажность держится в комфортной зоне круглый год.</p>
+          <p class="card__text" data-i18n="system.c3x">Форсуночное увлажнение высокого давления&nbsp;— невидимое, как и решётки: форсунки скрыты, влажность держится в комфортной зоне 40–60&nbsp;% круглый год. Для сухого континентального климата&nbsp;— обязательная часть проекта.</p>
           <span class="card__stamp mono">40–60%&nbsp;RH&nbsp;·&nbsp;HIGH&nbsp;PRESSURE</span>
         </div>
         <figure class="card__media card__media--svg" aria-hidden="true">
@@ -265,7 +241,6 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
               <path d="M136 70 C 205 76, 285 78, 364 80" class="mist__jet"/>
               <path d="M136 70 C 205 92, 285 104, 360 112" class="mist__jet"/>
             </g>
-            <g class="mist__dots"></g>
           </svg>
         </figure>
       </div>
@@ -275,8 +250,8 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <span class="card__num" aria-hidden="true">04</span>
         <div class="card__body">
           <h3 class="card__title" data-i18n="system.c4t">Монтаж</h3>
-          <p class="card__text" data-i18n="system.c4x">Монтаж в Ереване делают наши бригады: черновой и чистовой этап, шаблоны, пусконаладка, сдача под подпись. Инженер сопровождает объект от подбора до финиша.</p>
-          <span class="card__stamp mono">YEREVAN&nbsp;CREW&nbsp;·&nbsp;ON-SITE</span>
+          <p class="card__text" data-i18n="system.c4x">Монтаж ведут наши бригады: черновой и чистовой этап, шаблоны, пусконаладка, сдача по акту. Инженер сопровождает объект от подбора до финиша; в Ереване&nbsp;— собственная монтажная команда.</p>
+          <span class="card__stamp mono">OWN&nbsp;CREWS&nbsp;·&nbsp;ON-SITE</span>
         </div>
         <figure class="card__media"><img src="assets/ceiling-2.jpg" alt="Смонтированная щелевая решётка в потолке" loading="lazy"></figure>
       </div>
@@ -284,14 +259,12 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
   </div>
 </section>
 
-<div class="slit" aria-hidden="true"><i></i></div>
-
-<!-- ══════════ 03 ПРОДУКТ ══════════ -->
+<!-- ══════════ 04 ПРОДУКТ ══════════ -->
 <section class="sec product" id="product">
   <div class="sec__inner">
-    <p class="kicker kicker--num reveal"><i>03</i><span data-i18n="product.kicker">Продукт</span></p>
+    <p class="kicker kicker--num reveal"><i>04</i><span data-i18n="product.kicker">Продукт</span></p>
     <h2 class="h2 reveal-lines" data-i18n="product.h2">Реестр решёток</h2>
-    <p class="lead reveal" data-i18n="product.lead">12 серий и более 30 моделей: потолок, стены, пол. Всё производится под заказ — под размеры, цвет и узлы вашего проекта.</p>
+    <p class="lead reveal" data-i18n="product.lead">12 серий и более 30 моделей: потолок, стены, пол. Всё производится под заказ&nbsp;— под размеры, цвет и узлы вашего проекта.</p>
     <div class="reg reveal" id="reg">
       <div class="reg__head mono" aria-hidden="true">
         <span data-i18n="product.hSeries">Серия</span>
@@ -352,95 +325,59 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <li><i style="--sw:#F4F4F2"></i><span data-i18n="product.f1">RAL 9003 · белый</span></li>
         <li><i style="--sw:#0F0F10"></i><span data-i18n="product.f2">RAL 9005 · чёрный</span></li>
         <li><i style="--sw:linear-gradient(135deg,#B9BDC4,#8E939B)"></i><span data-i18n="product.f3">анодирование</span></li>
-        <li><i style="--sw:linear-gradient(135deg,#D8C29A,#A8853B)"></i><span data-i18n="product.f4">шампань</span></li>
+        <li><i style="--sw:linear-gradient(135deg,#E3C98F,#C9A96A)"></i><span data-i18n="product.f4">шампань</span></li>
         <li><i style="--sw:linear-gradient(135deg,#8A6A4C,#5E4630)"></i><span data-i18n="product.f5">шпон</span></li>
         <li class="finish__any mono" data-i18n="product.fAny">+ любой RAL под проект</li>
       </ul>
     </div>
   </div>
   <figure class="wide reveal">
-    <div class="wide__mask"><img src="assets/ceiling-4.jpg" alt="Интерьер с невидимой вентиляцией: тонкая щель в потолке" loading="lazy" data-parallax></div>
+    <div class="wide__mask"><img src="assets/ceiling-3.jpg" alt="Интерьер с невидимой вентиляцией: тонкая щель в потолке" loading="lazy" data-parallax></div>
     <figcaption class="callout callout--onphoto">
       <i class="callout__line" aria-hidden="true"></i>
-      <span class="mono" data-i18n="product.callout">вся вентиляция этой комнаты — в одной линии</span>
+      <span class="mono" data-i18n="product.callout">вся вентиляция этой комнаты&nbsp;— в одной линии</span>
     </figcaption>
   </figure>
   <div class="specrow reveal" role="group" aria-label="Ключевые характеристики">
     <span class="specrow__item mono">25–1500&nbsp;<i data-i18n="unit.m3h">м³/ч</i></span>
     <span class="specrow__item mono">≤2&nbsp;<i data-i18n="unit.ms">м/с</i>&nbsp;·&nbsp;<i data-i18n="product.silent">бесшумно</i></span>
-    <span class="specrow__item mono"><i data-i18n="product.anyForm">радиусные и угловые — под заказ</i></span>
+    <span class="specrow__item mono"><i data-i18n="product.anyForm">радиусные и угловые&nbsp;— под заказ</i></span>
   </div>
 </section>
 
-<!-- ══════════ 04 ТИШИНА (тёмный остров) ══════════ -->
+<!-- ══════════ 05 ТИШИНА ══════════ -->
 <section class="night" id="silence">
-  <div class="night__card">
-    <svg class="night__flow" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
-      <path class="night__path" d="M-20 140 C 240 100, 420 190, 640 150 S 1020 90, 1220 130"/>
-      <path class="night__path night__path--2" d="M-20 320 C 260 290, 480 370, 700 330 S 1040 270, 1220 310"/>
-      <path class="night__path night__path--3" d="M-20 500 C 240 470, 460 540, 680 505 S 1030 450, 1220 490"/>
-    </svg>
-    <div class="night__inner">
-      <p class="kicker kicker--num kicker--gold reveal"><i>04</i><span data-i18n="night.kicker">Тишина</span></p>
-      <h2 class="h2 h2--ondark reveal-lines" data-i18n="night.h2">22:00. Ереван засыпает. Вентиляция работает.</h2>
-      <div class="night__mantra reveal">
-        <p data-i18n="night.m1">Хорошую вентиляцию не видно.</p>
-        <p data-i18n="night.m2">Хорошую вентиляцию <em>не слышно</em>.</p>
+  <svg class="night__flow" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+    <path class="night__path" d="M-20 140 C 240 100, 420 190, 640 150 S 1020 90, 1220 130"/>
+    <path class="night__path night__path--2" d="M-20 320 C 260 290, 480 370, 700 330 S 1040 270, 1220 310"/>
+    <path class="night__path night__path--3" d="M-20 500 C 240 470, 460 540, 680 505 S 1030 450, 1220 490"/>
+  </svg>
+  <div class="night__inner">
+    <p class="kicker kicker--num kicker--gold reveal"><i>05</i><span data-i18n="night.kicker">Тишина</span></p>
+    <h2 class="h2 h2--ondark reveal-lines" data-i18n="night.h2">22:00. Город засыпает. Вентиляция работает.</h2>
+    <div class="night__mantra reveal">
+      <p data-i18n="night.m1">Хорошую вентиляцию не видно.</p>
+      <p data-i18n="night.m2">Хорошую вентиляцию <em>не слышно</em>.</p>
+    </div>
+    <div class="night__glow" aria-hidden="true"></div>
+    <div class="stats stats--dark reveal">
+      <div class="stat">
+        <span class="stat__num"><i>≤</i><b>2</b></span>
+        <span class="stat__cap" data-i18n="night.s1">м/с&nbsp;— скорость потока в щели: порог бесшумности</span>
       </div>
-      <div class="night__glow" aria-hidden="true"></div>
-      <div class="stats stats--dark reveal">
-        <div class="stat">
-          <span class="stat__num"><i>≤</i><b>2</b></span>
-          <span class="stat__cap" data-i18n="night.s1">м/с — скорость потока в щели: порог бесшумности</span>
-        </div>
-        <div class="stat">
-          <span class="stat__num"><b data-count="1500">1&nbsp;500</b></span>
-          <span class="stat__cap" data-i18n="night.s2">м³/ч — максимальный расход воздуха на одну линию</span>
-        </div>
-        <div class="stat">
-          <span class="stat__num"><b data-count="20">20</b></span>
-          <span class="stat__cap" data-i18n="night.s3">лет — максимальный срок гарантии на профиль и геометрию</span>
-        </div>
+      <div class="stat">
+        <span class="stat__num"><b data-count="1500">1&nbsp;500</b></span>
+        <span class="stat__cap" data-i18n="night.s2">м³/ч&nbsp;— максимальный расход воздуха на одну линию</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num"><b data-count="20">20</b></span>
+        <span class="stat__cap" data-i18n="night.s3">лет&nbsp;— максимальный срок гарантии на профиль и геометрию</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ 05 КЛИМАТ ══════════ -->
-<section class="sec sec--warm climate" id="climate">
-  <div class="sec__inner">
-    <p class="kicker kicker--num reveal"><i>05</i><span data-i18n="climate.kicker">Климат</span></p>
-    <h2 class="h2 reveal-lines" data-i18n="climate.h2">Самый сухой воздух — летом. Самые сухие квартиры — в январе.</h2>
-    <p class="lead reveal" data-i18n="climate.lead">Летом влажность в Ереване держится у нижней границы комфортной зоны. Зимой на улице она высокая, но отопление высушивает квартиры: у воздуха, нагретого до +22&nbsp;°C, относительная влажность падает до 20–30&nbsp;%. Комфортная зона 40–60&nbsp;% достижима только системой увлажнения.</p>
-    <figure class="chart reveal" id="chart">
-      <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" class="chart__svg" id="chart-svg" role="img" data-i18n-aria="climate.chartAlt" aria-label="График влажности воздуха в Ереване по месяцам: на улице от 47 % летом до 81 % зимой; в отапливаемой квартире зимой опускается до 22 %">
-        <rect class="chart__band" x="52" y="139" width="640" height="51"/>
-        <text class="chart__bandlabel" x="60" y="185" data-i18n="climate.band">зона комфорта 40–60&#160;%</text>
-        <g class="chart__grid">
-          <line x1="52" y1="241" x2="692" y2="241"/><text x="40" y="245">20</text>
-          <line x1="52" y1="190" x2="692" y2="190"/><text x="40" y="194">40</text>
-          <line x1="52" y1="139" x2="692" y2="139"/><text x="40" y="143">60</text>
-          <line x1="52" y1="88"  x2="692" y2="88"/><text x="40" y="92">80</text>
-        </g>
-        <g class="chart__months" id="chart-months"></g>
-        <path class="chart__line chart__line--out" id="chart-out" d=""/>
-        <path class="chart__line chart__line--in" id="chart-in" d=""/>
-        <g class="chart__hover" id="chart-hover"></g>
-        <circle class="chart__enddot" id="chart-dot-out" cx="676" cy="88" r="3.5" fill="#2F5DA8"/>
-        <circle class="chart__enddot" id="chart-dot-in" cx="676" cy="231" r="3.5" fill="#A8853B"/>
-        <text class="chart__lab chart__lab--out" x="666" y="74" text-anchor="end" data-i18n="climate.labOut">на улице</text>
-        <text class="chart__lab chart__lab--in" x="666" y="253" text-anchor="end" data-i18n="climate.labIn">в квартире зимой</text>
-      </svg>
-      <div class="chart__tip mono" id="chart-tip" aria-hidden="true"></div>
-      <figcaption class="foot mono" data-i18n="climate.src">Среднемесячная относительная влажность, Ереван; «в квартире» — расчёт для уличного воздуха, нагретого до +22 °C в отопительный сезон</figcaption>
-    </figure>
-    <p class="climate__cta reveal" data-i18n="climate.out">Поэтому в каждый проект для Еревана мы закладываем форсуночное увлажнение — так же скрыто, как и решётки: видна только линия света на потолке, слышен только воздух.</p>
-  </div>
-</section>
-
-<div class="slit" aria-hidden="true"><i></i></div>
-
-<!-- ══════════ 06 ПРОЦЕСС + ЕАЭС ══════════ -->
+<!-- ══════════ 06 ПРОЦЕСС ══════════ -->
 <section class="sec process" id="process">
   <div class="sec__inner">
     <p class="kicker kicker--num reveal"><i>06</i><span data-i18n="process.kicker">Процесс</span></p>
@@ -465,85 +402,102 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         </li>
         <li class="tl__item reveal">
           <span class="tl__num mono">04</span>
-          <div><h3 class="tl__t" data-i18n="process.t4">Поставка</h3><p class="tl__x" data-i18n="process.x4">Армения — член ЕАЭС: груз идёт без таможенных пошлин и таможенного оформления, по единым техрегламентам EAC.</p></div>
-          <span class="tl__meta mono" data-i18n="process.m4">без пошлин</span>
+          <div><h3 class="tl__t" data-i18n="process.t4">Поставка</h3><p class="tl__x" data-i18n="process.x4">Доставляем по России и СНГ, в ОАЭ и Таиланд. В Армению груз идёт без пошлин и таможенного оформления&nbsp;— единое пространство ЕАЭС, сертификация EAC.</p></div>
+          <span class="tl__meta mono" data-i18n="process.m4">4 направления</span>
         </li>
         <li class="tl__item reveal">
           <span class="tl__num mono">05</span>
           <div><h3 class="tl__t" data-i18n="process.t5">Монтаж и сдача</h3><p class="tl__x" data-i18n="process.x5">Бригада Vent-Line монтирует на черновом и чистовом этапе, проводит пусконаладку и сдаёт объект по акту.</p></div>
-          <span class="tl__meta mono" data-i18n="process.m5">Ереван</span>
+          <span class="tl__meta mono" data-i18n="process.m5">под ключ</span>
         </li>
       </ol>
-    </div>
-    <div class="eaeu reveal">
-      <span class="eaeu__chip"><b data-i18n="process.e1b">ЕАЭС с 2015</b><span data-i18n="process.e1x">единое таможенное пространство России и Армении</span></span>
-      <span class="eaeu__chip"><b data-i18n="process.e2b">EAC</b><span data-i18n="process.e2x">сертификация действует на всей территории союза</span></span>
-      <span class="eaeu__chip"><b data-i18n="process.e3b">RU · HY · EN</b><span data-i18n="process.e3x">проект и переписка — на удобном вам языке</span></span>
     </div>
   </div>
 </section>
 
-<div class="slit" aria-hidden="true"><i></i></div>
-
-<!-- ══════════ 07 ДОВЕРИЕ ══════════ -->
-<section class="sec sec--warm trust" id="trust">
+<!-- ══════════ 07 АДРЕСА ══════════ -->
+<section class="sec sec--soft trust" id="trust">
   <div class="sec__inner">
-    <p class="kicker kicker--num reveal"><i>07</i><span data-i18n="trust.kicker">О нас</span></p>
+    <p class="kicker kicker--num reveal"><i>07</i><span data-i18n="trust.kicker">Адреса</span></p>
     <h2 class="h2 reveal-lines" data-i18n="trust.h2">Нам доверяют, когда нельзя ошибиться</h2>
-    <p class="lead reveal" data-i18n="trust.lead">С 2011 года мы делаем вентиляцию невидимой для ведущих девелоперов, архитектурных бюро и частных заказчиков России. Теперь этот опыт работает в Армении.</p>
+    <p class="lead reveal" data-i18n="trust.lead">С 2011 года&nbsp;— премиальные жилые и общественные пространства России, ОАЭ, Таиланда и городов СНГ.</p>
+    <div class="reg reveal" id="addr">
+      <div class="reg__rows reg__rows--addr">
+        <div class="reg__row reg__row--addr" data-img="assets/wall-2.jpg">
+          <span class="reg__name">Москва-Сити</span>
+          <span class="reg__where" data-i18n="addr.g1">Москва · башни делового квартала</span>
+          <span class="reg__arr" aria-hidden="true">→</span>
+        </div>
+        <div class="reg__row reg__row--addr" data-img="assets/ceiling-5.jpg">
+          <span class="reg__name">Agalarov Estate</span>
+          <span class="reg__where" data-i18n="addr.g2">Московская область · резиденции</span>
+          <span class="reg__arr" aria-hidden="true">→</span>
+        </div>
+        <div class="reg__row reg__row--addr" data-img="assets/wall-4.jpg">
+          <span class="reg__name">Crocus Group</span>
+          <span class="reg__where" data-i18n="addr.g3">Москва · коммерческие пространства</span>
+          <span class="reg__arr" aria-hidden="true">→</span>
+        </div>
+        <div class="reg__row reg__row--addr" data-img="assets/floor-2.jpg">
+          <span class="reg__name">Ingrad</span>
+          <span class="reg__where" data-i18n="addr.g4">Москва · жилые кварталы</span>
+          <span class="reg__arr" aria-hidden="true">→</span>
+        </div>
+        <div class="reg__row reg__row--addr" data-img="assets/floor-4.jpg">
+          <span class="reg__name" data-i18n="addr.n5">Частные резиденции</span>
+          <span class="reg__where" data-i18n="addr.g5">Дубай, ОАЭ</span>
+          <span class="reg__arr" aria-hidden="true">→</span>
+        </div>
+        <div class="reg__row reg__row--addr" data-img="assets/wall-5.jpg">
+          <span class="reg__name" data-i18n="addr.n6">Частные виллы</span>
+          <span class="reg__where" data-i18n="addr.g6">Бангкок, Таиланд</span>
+          <span class="reg__arr" aria-hidden="true">→</span>
+        </div>
+      </div>
+      <div class="reg__preview" id="addr-preview" aria-hidden="true"><img src="assets/wall-2.jpg" alt=""></div>
+    </div>
     <div class="facts reveal">
       <div class="fact"><b>2011</b><span data-i18n="trust.f1">год основания производства</span></div>
       <div class="fact"><b>12</b><span data-i18n="trust.f2">серий решёток в каталоге</span></div>
       <div class="fact"><b>30+</b><span data-i18n="trust.f3">моделей: потолок, стены, пол</span></div>
       <div class="fact"><b data-i18n="trust.f4b">1 день</b><span data-i18n="trust.f4">полный пакет документации</span></div>
     </div>
-    <div class="clients reveal" role="group" aria-label="Наши клиенты">
-      <img src="assets/client-crocus.png" alt="Crocus Group" loading="lazy">
-      <img src="assets/client-agalarov.png" alt="Agalarov Estate" loading="lazy">
-      <img src="assets/client-ingrad.jpg" alt="Ingrad" loading="lazy">
-      <img src="assets/client-moscow-city.png" alt="Москва-Сити" loading="lazy">
-    </div>
-    <div class="gal reveal" role="group" aria-label="Фотографии объектов">
-      <figure class="gal__item"><img src="assets/wall-2.jpg" alt="Щелевая решётка в стене" loading="lazy" data-parallax></figure>
-      <figure class="gal__item"><img src="assets/floor-2.jpg" alt="Напольная щелевая решётка у панорамного окна" loading="lazy" data-parallax></figure>
-      <figure class="gal__item"><img src="assets/ceiling-5.jpg" alt="Потолочная щелевая решётка в интерьере" loading="lazy" data-parallax></figure>
-    </div>
   </div>
 </section>
 
-<!-- ══════════ CTA + ФУТЕР (тёмный финал) ══════════ -->
+<!-- ══════════ CTA ══════════ -->
 <section class="cta" id="cta">
   <div class="cta__inner">
     <div class="cta__left">
-      <p class="kicker kicker--gold reveal"><span class="kicker__paren">(</span> <span data-i18n="cta.kicker">Ереван · 2026</span>&nbsp;<span class="kicker__paren">)</span></p>
-      <h2 class="h2 h2--ondark reveal-lines" data-i18n="cta.h2">Строите в Ереване?</h2>
-      <p class="lead lead--ondark reveal" data-i18n="cta.lead">Пришлите план этажа — за 48&nbsp;часов вернём спецификацию решёток, смету и сроки производства. Бесплатно и с NDA, если нужно.</p>
+      <p class="kicker kicker--gold reveal"><span data-i18n="cta.kicker">Vent-Line · 2026</span></p>
+      <h2 class="h2 h2--ondark reveal-lines" data-i18n="cta.h2">Обсудим ваш объект</h2>
+      <p class="lead lead--ondark reveal" data-i18n="cta.lead">Пришлите план этажа&nbsp;— за 48&nbsp;часов вернём предварительную спецификацию, смету и сроки. Работаем с Россией и СНГ, ОАЭ и Таиландом; в Ереване&nbsp;— собственные монтажные бригады.</p>
       <ul class="cta__contacts reveal">
         <li><span class="mono">Telegram</span><a href="https://t.me/VentLine1" target="_blank" rel="noopener">@VentLine1</a></li>
         <li><span class="mono" data-i18n="cta.phone">Телефон · Москва</span><a href="tel:+74992830865">+7 (499) 283-08-65</a></li>
         <li><span class="mono">E-mail</span><a href="mailto:info+322987870@vent-line.ru">info@vent-line.ru</a></li>
       </ul>
-      <p class="cta__note mono reveal" data-i18n="cta.note">пн–пт 9:00–18:00 · отвечаем по-русски, по-армянски и по-английски</p>
+      <p class="cta__note mono reveal" data-i18n="cta.note">пн–пт 9:00–18:00 · отвечаем по-русски и по-английски</p>
     </div>
     <form class="form reveal" id="form">
       <label class="form__field">
         <span data-i18n="form.name">Имя</span>
-        <input type="text" name="name" autocomplete="name" required data-i18n-ph="form.namePh" placeholder="Арам">
+        <input type="text" name="name" autocomplete="name" required data-i18n-ph="form.namePh" placeholder="Имя">
       </label>
       <label class="form__field">
         <span data-i18n="form.company">Компания / проект</span>
-        <input type="text" name="company" autocomplete="organization" data-i18n-ph="form.companyPh" placeholder="ЖК в Арабкире">
+        <input type="text" name="company" autocomplete="organization" data-i18n-ph="form.companyPh" placeholder="ЖК, отель, резиденция…">
       </label>
       <label class="form__field">
         <span data-i18n="form.contact">Телефон или Telegram</span>
-        <input type="text" name="contact" autocomplete="tel" required placeholder="+374 …">
+        <input type="text" name="contact" autocomplete="tel" required placeholder="+7 …">
       </label>
       <label class="form__field">
         <span data-i18n="form.msg">Задача</span>
         <textarea name="msg" rows="4" data-i18n-ph="form.msgPh" placeholder="Этажность, число квартир, сроки…"></textarea>
       </label>
       <button class="btn btn--gold" type="submit" data-magnet data-i18n="form.send">Отправить запрос</button>
-      <p class="form__note mono" data-i18n="form.note">Кнопка откроет письмо в вашей почте — ничего не отправится без вашего подтверждения.</p>
+      <p class="form__note mono" data-i18n="form.note">Кнопка откроет письмо в вашей почте&nbsp;— ничего не отправится без вашего подтверждения.</p>
     </form>
   </div>
 </section>
@@ -557,15 +511,15 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <svg class="footer__mark" viewBox="0 0 632 671" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M632 0V7.33774L592.752 20.7903L591.074 24.8669C591.074 24.8669 404.561 500.193 344.849 652.248C327.07 606.998 139.214 128.004 98.9597 24.8669H81.516C146.595 189.152 303.253 584.577 337.469 671H294.531C232.471 512.83 141.563 282.505 76.1487 115.366L74.1359 110.067L67.0913 91.7224L39.2485 20.7903L0 7.33774V0H129.822C174.102 112.513 291.512 409.693 345.185 546.258L550.484 24.8669H533.04L344.514 505.9L324.051 453.312L502.514 0.407555H632V0Z"/>
         </svg>
-        <p class="footer__mission" data-i18n="footer.mission">Невидимая инженерия воздуха — от чертежа до монтажа.</p>
+        <p class="footer__mission" data-i18n="footer.mission">Невидимая инженерия воздуха&nbsp;— от чертежа до монтажа.</p>
       </div>
       <nav class="footer__col" aria-label="Разделы">
         <h3 class="mono" data-i18n="footer.nav">Разделы</h3>
-        <a href="#market" data-scroll data-i18n="nav.market">Рынок</a>
-        <a href="#system" data-scroll data-i18n="nav.system">Система</a>
+        <a href="#brand" data-scroll data-i18n="nav.brand">Бренд</a>
+        <a href="#line" data-scroll data-i18n="nav.line">Линия</a>
         <a href="#product" data-scroll data-i18n="nav.product">Продукт</a>
         <a href="#process" data-scroll data-i18n="nav.process">Процесс</a>
-        <a href="#trust" data-scroll data-i18n="nav.trust">О нас</a>
+        <a href="#trust" data-scroll data-i18n="nav.trust">Адреса</a>
         <a href="#cta" data-scroll data-i18n="nav.contact">Контакт</a>
       </nav>
       <div class="footer__col" role="group" aria-label="Контакты">
@@ -577,17 +531,17 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
       </div>
       <div class="footer__col">
         <h3 class="mono" data-i18n="footer.now">Сейчас</h3>
-        <p class="footer__clock"><span class="mono" data-i18n="footer.msk">Москва</span><b id="clock-msk">—:—</b></p>
-        <p class="footer__clock"><span class="mono" data-i18n="footer.evn">Ереван</span><b id="clock-evn">—:—</b></p>
+        <p class="footer__clock"><span class="mono" data-i18n="footer.msk">Москва</span><b data-clock data-tz="Europe/Moscow">—:—</b></p>
+        <p class="footer__clock"><span class="mono" data-i18n="footer.evn">Ереван</span><b data-clock data-tz="Asia/Yerevan">—:—</b></p>
       </div>
     </div>
     <div class="footer__word" aria-hidden="true">
-      <svg viewBox="0 0 1000 112" width="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-        <text x="0" y="118" font-size="128" textLength="1000" lengthAdjust="spacingAndGlyphs">VENT LINE</text>
+      <svg viewBox="0 0 1000 108" width="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+        <text x="0" y="112" font-size="118" textLength="1000" lengthAdjust="spacingAndGlyphs">VENT LINE</text>
       </svg>
     </div>
     <div class="footer__legal mono">
-      <span data-i18n="footer.legal">© 2011–2026 Vent-Line · ИП Спиридонов Г. Г. · ИНН 772994390219 · Производство — Московская обл. · Монтаж — Ереван</span>
+      <span data-i18n="footer.legal">© 2011–2026 Vent-Line · ИП Спиридонов Г. Г. · ИНН 772994390219 · Производство&nbsp;— Московская обл. · Монтаж&nbsp;— Ереван</span>
     </div>
   </div>
 </footer>
@@ -595,7 +549,8 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script src="js/i18n.js?v=2"></script>
-<script src="js/main.js?v=2"></script>
+<script src="js/i18n.js?v=4"></script>
+<script src="js/main.js?v=4"></script>
+<script type="module" src="js/scene.js?v=2"></script>
 </body>
 </html>

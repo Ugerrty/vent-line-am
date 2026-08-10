@@ -271,9 +271,9 @@ if (hasST && !reduced) {
   });
 }
 
-/* ── реестр: hover-превью ─────────────────────────────────────── */
-(function(){
-  var reg = $('#reg'), prev = $('#reg-preview');
+/* ── hover-превью для списков (реестр решёток, адреса) ────────── */
+function initHoverPreview(containerSel, previewSel){
+  var reg = $(containerSel), prev = $(previewSel);
   if (!reg || !prev || window.matchMedia('(hover: none)').matches) return;
   var img = prev.querySelector('img');
   var tx = 0, ty = 0, cx = 0, cy = 0, on = false, raf = 0;
@@ -302,7 +302,9 @@ if (hasST && !reduced) {
     on = false;
     prev.classList.remove('is-on');
   });
-})();
+}
+initHoverPreview('#reg', '#reg-preview');
+initHoverPreview('#addr', '#addr-preview');
 
 /* ── график климата ───────────────────────────────────────────── */
 var OUT = [81,74,64,58,56,49,47,46,52,63,73,80];
@@ -410,7 +412,7 @@ function drawChart(){
   var links = $$('a', dex);
   var map = {};
   links.forEach(function(a){ map[a.getAttribute('data-dex')] = a; });
-  ['market','system','product','silence','climate','process','trust','cta'].forEach(function(id){
+  ['brand','line','system','product','silence','process','trust','cta'].forEach(function(id){
     var sec = $('#' + id);
     if (!sec) return;
     ScrollTrigger.create({
@@ -421,7 +423,7 @@ function drawChart(){
     });
   });
   var darkCount = 0;
-  ['#cta', '.footer'].forEach(function(sel){
+  ['#hero', '#cta', '.footer'].forEach(function(sel){
     var el = $(sel);
     if (!el) return;
     ScrollTrigger.create({
@@ -471,16 +473,20 @@ if (GS && !reduced && !window.matchMedia('(hover: none)').matches) {
   });
 })();
 
-/* ── часы Москва / Ереван ─────────────────────────────────────── */
+/* ── живые часы городов ([data-clock][data-tz]) ───────────────── */
 (function(){
-  var msk = $('#clock-msk'), evn = $('#clock-evn');
-  if (!msk || !evn) return;
+  var clocks = $$('[data-clock]');
+  if (!clocks.length) return;
   function tick(){
-    try {
-      var o = { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' };
-      msk.textContent = new Intl.DateTimeFormat('ru-RU', Object.assign({ timeZone: 'Europe/Moscow' }, o)).format(new Date());
-      evn.textContent = new Intl.DateTimeFormat('ru-RU', Object.assign({ timeZone: 'Asia/Yerevan' }, o)).format(new Date());
-    } catch(e){}
+    var now = new Date();
+    clocks.forEach(function(el){
+      try {
+        el.textContent = new Intl.DateTimeFormat('ru-RU', {
+          hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+          timeZone: el.getAttribute('data-tz')
+        }).format(now);
+      } catch(e){}
+    });
   }
   tick();
   setInterval(tick, 30000);
