@@ -157,25 +157,31 @@ var chartDrawn = false;
 function startReveals(){
   if (!('IntersectionObserver' in window)) {
     $$('.reveal, .reveal-lines').forEach(function(el){ el.classList.add('is-in'); });
-    $$('.slit').forEach(function(el){ el.classList.add('is-open'); });
+    $$('.shutter').forEach(function(el){ el.classList.add('is-open'); });
     counters.forEach(runCounter);
-    drawChart();
     return;
   }
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(en){
       if (!en.isIntersecting) return;
       var el = en.target;
-      if (el.classList.contains('slit')) el.classList.add('is-open');
+      if (el.classList.contains('shutter')) el.classList.add('is-open');
       else el.classList.add('is-in');
       if (el.querySelector && el.querySelector('b[data-count]')) {
         counters.forEach(function(c){ if (el.contains(c.el)) runCounter(c); });
       }
-      if (el.id === 'chart' && !chartDrawn) drawChart();
       io.unobserve(el);
     });
-  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-  $$('.reveal, .reveal-lines, .slit').forEach(function(el){ io.observe(el); });
+  }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
+  $$('.reveal, .reveal-lines').forEach(function(el){ io.observe(el); });
+  var ioShutter = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      en.target.classList.add('is-open');
+      ioShutter.unobserve(en.target);
+    });
+  }, { threshold: 0.22 });
+  $$('.shutter').forEach(function(el){ ioShutter.observe(el); });
 }
 
 /* ── «живой воздух»: flow-field на 2D canvas ──────────────────── */
@@ -247,29 +253,65 @@ function startReveals(){
   } else setRun(true);
 })();
 
-/* ── параллакс фото ───────────────────────────────────────────── */
-if (hasST && !reduced) {
-  $$('[data-parallax]').forEach(function(img){
-    var box = img.closest('.hero__strip-mask, .wide__mask, .gal__item') || img.parentElement;
-    gsap.fromTo(img, { yPercent: -9 }, {
-      yPercent: 9, ease: 'none',
-      scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: true }
+/* ── щели-фото: кадр раскрывается из центральной линии ────────── */
+(function(){
+  var slots = $$('[data-slot]');
+  if (!slots.length) return;
+  if (hasST && !reduced) {
+    slots.forEach(function(slot){
+      var body = slot.querySelector('.slot__body');
+      if (!body) return;
+      body.style.transition = 'none'; /* скраб управляет клипом сам */
+      gsap.fromTo(body,
+        { clipPath: 'inset(49.55% 0% 49.55% 0%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)', ease: 'none',
+          scrollTrigger: { trigger: slot, start: 'top 82%', end: 'top 30%', scrub: 0.4 }
+        });
+      var img = body.querySelector('img');
+      if (img) {
+        gsap.fromTo(img, { yPercent: -5 }, {
+          yPercent: 5, ease: 'none',
+          scrollTrigger: { trigger: slot, start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+      }
     });
-  });
-}
+  } else if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.querySelector('.slot__body').classList.add('is-open');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.35 });
+    slots.forEach(function(s){ io.observe(s); });
+  } else {
+    slots.forEach(function(s){ s.querySelector('.slot__body').classList.add('is-open'); });
+  }
+})();
 
-/* ── стек карточек системы ────────────────────────────────────── */
-if (hasST && !reduced) {
-  var cards = $$('.deck .card');
-  cards.forEach(function(card, i){
-    if (i === cards.length - 1) return;
-    var next = cards[i + 1];
-    gsap.to(card.querySelector('.card__in'), {
-      scale: 0.964, y: -12, ease: 'none',
-      scrollTrigger: { trigger: next, start: 'top bottom-=60', end: 'top top+=160', scrub: true }
+/* ── система: щели-строки (hover открывает, клик — для тача) ──── */
+(function(){
+  var rows = $$('#rows .row');
+  if (!rows.length) return;
+  function setOpen(row, on){
+    row.classList.toggle('is-open', on);
+    row.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  rows.forEach(function(row){
+    row.addEventListener('click', function(){
+      var on = !row.classList.contains('is-open');
+      rows.forEach(function(r){ setOpen(r, false); });
+      setOpen(row, on);
+    });
+    row.addEventListener('mouseenter', function(){
+      if (window.matchMedia('(hover: none)').matches) return;
+      rows.forEach(function(r){ setOpen(r, r === row); });
     });
   });
-}
+  /* первая строка открыта по умолчанию — видно, что строки живые */
+  setOpen(rows[0], true);
+})();
 
 /* ── hover-превью для списков (реестр решёток, адреса) ────────── */
 function initHoverPreview(containerSel, previewSel){
@@ -305,90 +347,6 @@ function initHoverPreview(containerSel, previewSel){
 }
 initHoverPreview('#reg', '#reg-preview');
 initHoverPreview('#addr', '#addr-preview');
-
-/* ── график климата ───────────────────────────────────────────── */
-var OUT = [81,74,64,58,56,49,47,46,52,63,73,80];
-var INN = [22,25,32,45,54,48,46,45,50,40,30,24];
-var CX0 = 60, CDX = 56, CY = function(v){ return 292 - v * 2.55; };
-function smoothPath(data){
-  var pts = data.map(function(v, i){ return [CX0 + i * CDX, CY(v)]; });
-  var d = 'M' + pts[0][0] + ' ' + pts[0][1];
-  for (var i = 0; i < pts.length - 1; i++) {
-    var p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
-    var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
-    var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
-    d += 'C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ',' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ',' + p2[0] + ' ' + p2[1];
-  }
-  return d;
-}
-function renderMonths(){
-  var g = $('#chart-months');
-  if (!g || !window.VL_I18N) return;
-  var m = VL_I18N.months();
-  var out = '';
-  for (var i = 0; i < 12; i++) out += '<text x="' + (CX0 + i * CDX) + '" y="318">' + m[i] + '</text>';
-  g.innerHTML = out;
-}
-function drawChart(){
-  var pOut = $('#chart-out'), pIn = $('#chart-in');
-  if (!pOut || !pIn || chartDrawn) return;
-  chartDrawn = true;
-  pOut.setAttribute('d', smoothPath(OUT));
-  pIn.setAttribute('d', smoothPath(INN));
-  renderMonths();
-  var chartFig = $('#chart');
-  if (!reduced) {
-    [pOut, pIn].forEach(function(p, k){
-      var L = p.getTotalLength();
-      p.style.strokeDasharray = L;
-      p.style.strokeDashoffset = L;
-      p.getBoundingClientRect();
-      p.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) ' + (k * 0.35) + 's';
-      p.style.strokeDashoffset = '0';
-    });
-    setTimeout(function(){ if (chartFig) chartFig.classList.add('is-drawn'); }, 2000);
-  } else if (chartFig) {
-    chartFig.classList.add('is-drawn');
-  }
-  /* hover-слой */
-  var hov = $('#chart-hover'), tip = $('#chart-tip'), chart = $('#chart'), svg = $('#chart-svg');
-  if (!hov || !tip || !chart || !svg) return;
-  var ns = 'http://www.w3.org/2000/svg';
-  var vline = document.createElementNS(ns, 'line');
-  vline.setAttribute('y1', 60); vline.setAttribute('y2', 292);
-  var dotO = document.createElementNS(ns, 'circle'); dotO.setAttribute('r', 4); dotO.setAttribute('fill', '#2F5DA8');
-  var dotI = document.createElementNS(ns, 'circle'); dotI.setAttribute('r', 4); dotI.setAttribute('fill', '#A8853B');
-  hov.appendChild(vline); hov.appendChild(dotO); hov.appendChild(dotI);
-  for (var i = 0; i < 12; i++) {
-    (function(i){
-      var r = document.createElementNS(ns, 'rect');
-      r.setAttribute('x', CX0 + i * CDX - CDX / 2);
-      r.setAttribute('y', 40); r.setAttribute('width', CDX); r.setAttribute('height', 262);
-      hov.appendChild(r);
-      r.addEventListener('mouseenter', function(){
-        var x = CX0 + i * CDX;
-        vline.setAttribute('x1', x); vline.setAttribute('x2', x);
-        vline.style.opacity = 1;
-        dotO.setAttribute('cx', x); dotO.setAttribute('cy', CY(OUT[i])); dotO.style.opacity = 1;
-        dotI.setAttribute('cx', x); dotI.setAttribute('cy', CY(INN[i])); dotI.style.opacity = 1;
-        var m = window.VL_I18N ? VL_I18N.months() : [];
-        var lo = window.VL_I18N ? VL_I18N.t('climate.labOut') : '';
-        var li = window.VL_I18N ? VL_I18N.t('climate.labIn') : '';
-        tip.textContent = (m[i] || '') + ' · ' + lo + ' ' + OUT[i] + ' % · ' + li + ' ' + INN[i] + ' %';
-        var cr = chart.getBoundingClientRect(), sr = svg.getBoundingClientRect();
-        var px = sr.left - cr.left + (x / 760) * sr.width;
-        var py = sr.top - cr.top + (Math.min(CY(OUT[i]), CY(INN[i])) / 340) * sr.height;
-        tip.style.left = px + 'px';
-        tip.style.top = py + 'px';
-        tip.classList.add('is-on');
-      });
-    })(i);
-  }
-  svg.addEventListener('mouseleave', function(){
-    tip.classList.remove('is-on');
-    vline.style.opacity = 0; dotO.style.opacity = 0; dotI.style.opacity = 0;
-  });
-}
 
 /* ── нить таймлайна ───────────────────────────────────────────── */
 (function(){
@@ -522,7 +480,6 @@ $$('.lang__btn').forEach(function(b){
 });
 window.addEventListener('vl:lang', function(){
   counters.forEach(function(c){ if (c.done) c.el.textContent = fmtNum(c.target); });
-  renderMonths();
   if (hasST) setTimeout(function(){ ScrollTrigger.refresh(); }, 60);
 });
 try {
