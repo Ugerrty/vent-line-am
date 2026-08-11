@@ -31,22 +31,28 @@
 }
 
 html[data-theme="light"]{
-  --void:#F7F6F1;
-  --pane:#EFEDE6;
-  --ink:rgba(18,22,29,.94);
-  --dim:rgba(18,22,29,.6);
-  --faint:rgba(18,22,29,.4);
-  --gold:#A08347;
-  --gold-hi:#8F7238;
-  --gold-deep:#8F7238;
-  --hair:rgba(18,22,29,.13);
-  --hair-gold:rgba(160,131,71,.4);
-  --p1:rgba(160,131,71,.3);
-  --p2:rgba(18,22,29,.08);
+  --void:#EDEAE2;
+  --pane:#E4E0D6;
+  --ink:rgba(20,23,29,.94);
+  --dim:rgba(20,23,29,.68);
+  --faint:rgba(20,23,29,.46);
+  --gold:#9C7F43;
+  --gold-hi:#8A6D33;
+  --gold-deep:#8A6D33;
+  --hair:rgba(20,23,29,.16);
+  --hair-gold:rgba(156,127,67,.45);
+  --p1:rgba(156,127,67,.3);
+  --p2:rgba(20,23,29,.08);
   --img-filter:none;
-  --veil:linear-gradient(180deg,rgba(247,246,241,.86) 0%,rgba(247,246,241,.62) 45%,rgba(247,246,241,.95) 100%);
-  --plinth:#FFFFFF;
-  --header-bg:rgba(247,246,241,.95);
+  --veil:linear-gradient(180deg,rgba(237,234,226,.86) 0%,rgba(237,234,226,.62) 45%,rgba(237,234,226,.95) 100%);
+  --plinth:#F7F5EF;
+  --header-bg:rgba(237,234,226,.95);
+}
+
+/* армянская версия: Unbounded не содержит армянской письменности */
+html[lang="hy"]{
+  --disp:"Noto Sans Armenian",system-ui,sans-serif;
+  --text:"Noto Sans Armenian","Jost",system-ui,sans-serif;
 }
 
 /* кино-главы всегда тёмные — в обеих темах: hero, тишина, контакт, футер */
@@ -648,7 +654,7 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
   .series__grid{grid-template-columns:1fr}
   .crow{grid-template-columns:40px 1fr}
   .crow__meta{display:none}
-  .line{min-height:0;padding-bottom:66vw}
+  .line{min-height:0;padding-bottom:72vw}
   .line__list{max-width:none}
   .line__facts{display:none}
   .footer__inner{flex-direction:column;gap:20px}

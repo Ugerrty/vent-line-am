@@ -178,15 +178,19 @@ function layout(){
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   var narrow = camera.aspect < 0.9;
-  camera.position.set(0, 0.4, narrow ? 13.0 : 8.0);
-  camera.lookAt(0.6, -0.15, 0);
-  /* правый конец уходит за кадр — решётка «выглядывает», текст слева свободен.
-     На узких экранах модель сидит в нижней резерв-полосе (padding-bottom:66vw),
-     какой бы высокой ни была секция. */
+  /* десктоп: правый конец уходит за кадр — решётка «выглядывает», текст слева
+     свободен. Узкие экраны: профиль по центру резерв-полосы (padding-bottom:72vw),
+     камера ближе и с лёгким разворотом — «продуктовый постамент». */
   if (narrow) {
+    camera.position.set(0, 0.5, 12.2);
+    camera.lookAt(0.15, -0.1, 0);
+    group.rotation.set(-0.13, -0.12, 0);
     var V = camera.position.z * Math.tan(camera.fov * Math.PI / 360);
-    group.position.set(0.9, V * (0.66 * camera.aspect - 1), 0);
+    group.position.set(0.5, V * (0.72 * camera.aspect - 1) - 0.12, 0);
   } else {
+    camera.position.set(0, 0.4, 8.0);
+    camera.lookAt(0.6, -0.15, 0);
+    group.rotation.set(-0.09, -0.05, 0);
     group.position.set(4.0, -0.35, 0);
   }
   render();
