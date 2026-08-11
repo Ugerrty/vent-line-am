@@ -377,16 +377,6 @@ html:not(.has-scene) .line__fallback{display:block}
 
 /* ── 03 пространства: кино-раскрытия ──────────────────────────── */
 .spaces{padding:clamp(100px,14vh,180px) 0 clamp(40px,6vh,80px)}
-.spaces{position:relative}
-.cloth-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
-/* листы рисует WebGL: DOM-кадру остаётся рамка-паспарту, вайп и зум выключены */
-html.has-cloth .frame__zoom img{visibility:hidden}
-/* текстура не загрузилась — этому кадру возвращаем обычное DOM-фото */
-html.has-cloth .frame.cloth-fallback .frame__zoom img{visibility:visible}
-html.has-cloth.js .frame__mask,
-html.has-cloth.js .frame--right .frame__mask,
-html.has-cloth.js .frame--wide .frame__mask{clip-path:none;transition:none}
-html.has-cloth.js .frame__zoom{transform:none;transition:none}
 .frame{
   position:relative;
   margin:clamp(70px,10vh,130px) auto 0;
@@ -396,7 +386,7 @@ html.has-cloth.js .frame__zoom{transform:none;transition:none}
 .frame--wide{width:min(1240px,calc(100% - 2 * var(--gutter)))}
 .frame::before{
   content:attr(data-num);
-  position:absolute;top:-.52em;left:-8px;z-index:4;pointer-events:none;
+  position:absolute;top:-.52em;left:-8px;z-index:2;pointer-events:none;
   font-family:var(--disp);font-weight:200;
   font-size:clamp(58px,7vw,108px);line-height:1;
   color:var(--faint);opacity:0;transform:translateY(14px);
