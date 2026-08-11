@@ -1,12 +1,42 @@
-/* Vent-Line v5 — минимум JS: нативный скролл, лёгкие появления */
+/* Vent-Line v6 «Тёмный иммерсив» — нативный скролл + лёгкие сцены */
 (function(){
 'use strict';
 
 var $  = function(s, c){ return (c || document).querySelector(s); };
 var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var hasST = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+if (hasST) gsap.registerPlugin(ScrollTrigger);
 
-/* хедер: прозрачный над фото → бумага при скролле */
+/* ── прелоадер: золотая линия 0→20 мм ─────────────────────────── */
+var pre = $('#preloader');
+var booted = false;
+function boot(){
+  if (booted) return;
+  booted = true;
+  document.documentElement.classList.add('is-booted');
+  startReveals();
+}
+if (pre && !reduced && !document.hidden && document.documentElement.classList.contains('js')) {
+  var mm = $('#preloader-mm'), pLine = $('#preloader-line');
+  var t0 = null, DUR = 800;
+  var step = function(ts){
+    if (!t0) t0 = ts;
+    var t = Math.min(1, (ts - t0) / DUR);
+    var e = 1 - Math.pow(1 - t, 3);
+    if (mm) mm.textContent = Math.round(e * 20);
+    if (pLine) pLine.style.transform = 'scaleX(' + e + ')';
+    if (t < 1) requestAnimationFrame(step);
+    else setTimeout(function(){ pre.classList.add('is-done'); boot(); }, 350);
+  };
+  requestAnimationFrame(step);
+  setTimeout(function(){ if (!booted) { pre.classList.add('is-done'); boot(); } }, 4000);
+} else {
+  if (pre) pre.classList.add('is-done');
+  boot();
+}
+
+/* ── хедер ────────────────────────────────────────────────────── */
 var header = $('#header');
 function onScroll(){
   if (header) header.classList.toggle('is-scrolled', window.scrollY > 40);
@@ -14,7 +44,7 @@ function onScroll(){
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-/* мобильное меню */
+/* ── мобильное меню ───────────────────────────────────────────── */
 var burger = $('#burger'), menu = $('#menu');
 function setInert(on){
   ['#main', '.footer'].forEach(function(s){
@@ -57,15 +87,13 @@ if (burger && menu) {
     }
   });
 }
-
-/* якоря: нативный smooth (scroll-behavior в CSS) + закрытие меню */
 $$('[data-scroll]').forEach(function(a){
   a.addEventListener('click', function(){ closeMenu(); });
 });
 
-/* появления */
+/* ── появления + кадры-раскрытия ──────────────────────────────── */
 function startReveals(){
-  var els = $$('.reveal');
+  var els = $$('.reveal, .frame');
   if (!('IntersectionObserver' in window) || reduced) {
     els.forEach(function(el){ el.classList.add('is-in'); });
     return;
@@ -76,20 +104,82 @@ function startReveals(){
       en.target.classList.add('is-in');
       io.unobserve(en.target);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+  }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
   els.forEach(function(el){ io.observe(el); });
 }
-startReveals();
 
-/* мягкий наезд hero-фото после загрузки */
-function boot(){ document.documentElement.classList.add('is-booted'); }
-var heroImg = $('#hero-img');
-if (heroImg && heroImg.complete) requestAnimationFrame(boot);
-else if (heroImg) heroImg.addEventListener('load', function(){ requestAnimationFrame(boot); });
-else boot();
-setTimeout(boot, 1200); /* страховка */
+/* ── параллакс фото в кадрах ──────────────────────────────────── */
+if (hasST && !reduced) {
+  $$('[data-parallax]').forEach(function(img){
+    gsap.fromTo(img, { yPercent: -6 }, {
+      yPercent: 6, ease: 'none',
+      scrollTrigger: { trigger: img.closest('.frame'), start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+}
 
-/* форма → письмо */
+/* ── «живой воздух»: золотые частицы в hero ───────────────────── */
+(function(){
+  var cv = $('#air-canvas');
+  if (!cv || reduced) return;
+  var ctx = cv.getContext('2d');
+  var hero = $('#hero');
+  var W = 0, H = 0, parts = [], running = false, rafId = 0, t = 0;
+  function resize(){
+    var r = hero.getBoundingClientRect();
+    var w = Math.round(r.width), h = Math.round(r.height);
+    if (w === W && h === H) return;
+    W = cv.width = w; H = cv.height = h;
+    var n = Math.min(190, Math.round(W * H / 14000));
+    parts = [];
+    for (var i = 0; i < n; i++) parts.push(spawn(true));
+    ctx.fillStyle = '#07080B';
+    ctx.fillRect(0, 0, W, H);
+  }
+  function spawn(anywhere){
+    return { x: anywhere ? Math.random() * W : -10, y: Math.random() * H, g: Math.random() < 0.35 };
+  }
+  function frame(){
+    if (!running) return;
+    t += 1;
+    ctx.fillStyle = 'rgba(7,8,11,0.08)';
+    ctx.fillRect(0, 0, W, H);
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      var a = Math.sin(p.x * 0.0015 + t * 0.005) * 0.8 + Math.cos(p.y * 0.002 - t * 0.0035) * 0.8;
+      var nx = p.x + Math.cos(a) * 0.45 + 0.55;
+      var ny = p.y + Math.sin(a) * 0.3 + 0.04;
+      ctx.strokeStyle = p.g ? 'rgba(201,169,106,0.20)' : 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(nx, ny);
+      ctx.stroke();
+      p.x = nx; p.y = ny;
+      if (p.x > W + 10 || p.y > H + 10 || p.y < -10) parts[i] = spawn(false);
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+  var visible = true;
+  function setRun(){
+    var on = visible && !document.hidden;
+    if (on === running) return;
+    running = on;
+    if (running) rafId = requestAnimationFrame(frame);
+    else cancelAnimationFrame(rafId);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', setRun);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(en){
+      visible = en[0].isIntersecting;
+      setRun();
+    }, { threshold: 0.02 }).observe(hero);
+  } else setRun();
+})();
+
+/* ── форма → письмо ───────────────────────────────────────────── */
 var form = $('#form');
 if (form) {
   form.addEventListener('submit', function(e){
@@ -110,7 +200,7 @@ if (form) {
   });
 }
 
-/* язык */
+/* ── язык ─────────────────────────────────────────────────────── */
 $$('.lang__btn').forEach(function(b){
   b.addEventListener('click', function(){
     if (window.VL_I18N) VL_I18N.setLang(b.getAttribute('data-lang'));
@@ -120,6 +210,10 @@ try {
   var saved = localStorage.getItem('vl-lang');
   if (saved && saved !== 'ru' && window.VL_I18N) VL_I18N.setLang(saved);
 } catch(e){}
+
+window.addEventListener('load', function(){
+  if (hasST) ScrollTrigger.refresh();
+});
 
 window.__vlReady = true;
 })();
