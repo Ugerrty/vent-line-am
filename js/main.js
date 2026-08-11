@@ -129,15 +129,40 @@ function startReveals(){
   sweep();
 }
 
-/* ── параллакс фото в кадрах ──────────────────────────────────── */
-if (hasST && !reduced) {
-  $$('[data-parallax]').forEach(function(img){
-    gsap.fromTo(img, { yPercent: -6 }, {
-      yPercent: 6, ease: 'none',
-      scrollTrigger: { trigger: img.closest('.frame'), start: 'top bottom', end: 'bottom top', scrub: true }
-    });
+/* ── витрина проектов: скролл-снап лента ──────────────────────── */
+(function(){
+  var track = $('#show-track');
+  if (!track) return;
+  var slides = track.children.length;
+  var count = $('#show-count'), bar = $('#show-progress');
+  var prev = $('#show-prev'), next = $('#show-next');
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function index(){
+    return Math.min(slides - 1, Math.round(track.scrollLeft / track.clientWidth));
+  }
+  function sync(){
+    var i = index();
+    if (count) count.textContent = pad(i + 1) + ' / ' + pad(slides);
+    if (bar) bar.style.transform = 'scaleX(' + ((i + 1) / slides) + ')';
+    if (prev) prev.toggleAttribute('disabled', i === 0);
+    if (next) next.toggleAttribute('disabled', i === slides - 1);
+  }
+  function go(dir){
+    track.scrollBy({ left: dir * track.clientWidth, behavior: reduced ? 'auto' : 'smooth' });
+  }
+  if (prev) prev.addEventListener('click', function(){ go(-1); });
+  if (next) next.addEventListener('click', function(){ go(1); });
+  track.addEventListener('scroll', function(){
+    if (track.__t) return;
+    track.__t = setTimeout(function(){ track.__t = 0; sync(); }, 80);
   });
-}
+  track.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+  });
+  window.addEventListener('resize', sync);
+  sync();
+})();
 
 /* ── тема: день / ночь ────────────────────────────────────────── */
 var themeBtn = $('#theme');

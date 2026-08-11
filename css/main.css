@@ -375,56 +375,83 @@ html:not(.has-scene) .line__fallback{display:block}
   height:1px;background:var(--hair);
 }
 
-/* ── 03 пространства: кино-раскрытия ──────────────────────────── */
-.spaces{padding:clamp(100px,14vh,180px) 0 clamp(40px,6vh,80px)}
-.frame{
-  position:relative;
-  margin:clamp(70px,10vh,130px) auto 0;
-  width:min(1080px,calc(100% - 2 * var(--gutter)));
+/* ── 03 проекты: мозаика интерьеров + витрина объектов ────────── */
+.projects{padding:clamp(100px,14vh,180px) 0 0}
+.mosaic{
+  margin-top:clamp(40px,6vh,64px);
+  column-count:3;column-gap:clamp(16px,2vw,26px);
 }
-.frame--right{margin-right:var(--gutter);margin-left:auto;width:min(880px,calc(100% - 2 * var(--gutter)))}
-.frame--wide{width:min(1240px,calc(100% - 2 * var(--gutter)))}
-.frame::before{
-  content:attr(data-num);
-  position:absolute;top:-.52em;left:-8px;z-index:2;pointer-events:none;
-  font-family:var(--disp);font-weight:200;
-  font-size:clamp(58px,7vw,108px);line-height:1;
-  color:var(--faint);opacity:0;transform:translateY(14px);
-  transition:opacity .9s var(--ease) .5s,transform .9s var(--ease) .5s;
+.mosaic__item{
+  break-inside:avoid;margin:0 0 clamp(16px,2vw,26px);
+  border-radius:4px;overflow:hidden;background:var(--pane);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05);
+  transition:box-shadow .5s var(--ease);
 }
-.frame--right::before{left:auto;right:-8px}
-html.js .frame.is-in::before,html:not(.js) .frame::before{opacity:.5;transform:none}
-.frame__mask{
-  overflow:hidden;border-radius:4px;background:var(--pane);
-  aspect-ratio:16/8.4;
+.mosaic__item img{
+  width:100%;display:block;filter:var(--img-filter);
+  transition:transform 1.2s var(--ease);
 }
-.frame--right .frame__mask{aspect-ratio:16/9.6}
-html.js .frame__mask{clip-path:inset(0 100% 0 0 round 4px);transition:clip-path 1.25s var(--ease-io)}
-html.js .frame--right .frame__mask{clip-path:inset(0 0 0 100% round 4px)}
-html.js .frame--wide .frame__mask{clip-path:inset(0 50% 0 50% round 4px)}
-html.js .frame.is-in .frame__mask{clip-path:inset(0 0 0 0 round 4px)}
-.frame__zoom{display:block;width:100%;height:100%}
-html.js .frame__zoom{transform:scale(1.16);transform-origin:left center;transition:transform 2s var(--ease)}
-html.js .frame--right .frame__zoom{transform-origin:right center}
-html.js .frame--wide .frame__zoom{transform-origin:center center}
-html.js .frame.is-in .frame__zoom{transform:scale(1)}
-.frame__zoom img{
-  width:100%;height:112%;object-fit:cover;will-change:transform;
-  filter:var(--img-filter);
+.mosaic__item:hover{box-shadow:0 0 0 1px var(--hair-gold),0 22px 60px -24px rgba(201,169,106,.3)}
+.mosaic__item:hover img{transform:scale(1.035)}
+html[data-theme="light"] .mosaic__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 24px 50px -28px rgba(30,26,18,.28)}
+html[data-theme="light"] .mosaic__item:hover{box-shadow:0 0 0 1px var(--hair-gold),0 30px 60px -26px rgba(30,26,18,.38)}
+.projects__note{margin-top:6px}
+.projects__note a{color:var(--faint);transition:color .3s var(--ease)}
+.projects__note a:hover{color:var(--gold-hi)}
+
+/* витрина знаковых объектов: горизонтальная лента со скролл-снапом */
+.showcase{margin-top:clamp(70px,10vh,120px)}
+.showcase__track{
+  display:flex;overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;scrollbar-width:none;
 }
-html[data-theme="light"] .frame__mask{box-shadow:0 32px 70px -32px rgba(30,26,18,.35)}
-.frame__cap{
-  display:flex;align-items:baseline;gap:22px;
-  padding:16px 4px 0;
-  opacity:0;transform:translateY(12px);
-  transition:opacity .8s var(--ease) .55s,transform .8s var(--ease) .55s;
+.showcase__track::-webkit-scrollbar{display:none}
+.showcase__slide{
+  position:relative;flex:0 0 100%;scroll-snap-align:start;
+  height:clamp(380px,68vh,640px);overflow:hidden;
 }
-html.js .frame.is-in .frame__cap,html:not(.js) .frame__cap{opacity:1;transform:none}
-.frame__t{
+.showcase__slide img{
+  width:100%;height:100%;object-fit:cover;filter:var(--img-filter);
+}
+.showcase__veil{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,8,11,.18) 0%,rgba(7,8,11,.05) 42%,rgba(7,8,11,.78) 100%);
+}
+.showcase__info{
+  position:absolute;left:0;right:0;bottom:clamp(26px,5vh,46px);
+  max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter);
+  color:rgba(255,255,255,.94);
+}
+.showcase__info .mono{color:#C9A96A;display:block;margin-bottom:10px}
+.showcase__name{
   font-family:var(--disp);font-weight:300;text-transform:uppercase;
-  font-size:15px;letter-spacing:.14em;color:var(--gold-hi);
+  font-size:clamp(24px,3.6vw,52px);line-height:1.12;letter-spacing:.02em;
+  margin:0;
 }
-.frame__cap .mono{color:var(--faint);font-size:9.5px}
+.showcase__bar{
+  display:flex;align-items:center;gap:clamp(18px,3vw,34px);
+  padding-top:18px;padding-bottom:clamp(70px,10vh,120px);
+}
+.showcase__count{color:var(--dim);letter-spacing:.2em;flex:none}
+.showcase__progress{
+  flex:1;height:1px;background:var(--hair);position:relative;overflow:hidden;
+}
+.showcase__progress i{
+  position:absolute;left:0;top:0;bottom:0;width:100%;
+  background:linear-gradient(90deg,var(--gold),var(--gold-hi));
+  transform:scaleX(.2);transform-origin:left center;
+  transition:transform .45s var(--ease);
+}
+.showcase__nav{display:flex;gap:10px;flex:none}
+.showcase__btn{
+  width:46px;height:46px;border:1px solid var(--hair);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--dim);
+  transition:color .3s var(--ease),border-color .3s var(--ease);
+}
+.showcase__btn:hover{color:var(--gold-hi);border-color:var(--gold)}
+.showcase__btn svg{width:17px;height:17px}
+.showcase__btn[disabled]{opacity:.35;pointer-events:none}
 
 /* ── 04 тишина ────────────────────────────────────────────────── */
 .silence{padding:clamp(120px,17vh,210px) 0;background:var(--void)}
@@ -577,11 +604,14 @@ html.js .frame.is-in .frame__cap,html:not(.js) .frame__cap{opacity:1;transform:n
   .yerevan__rows li{grid-template-columns:1fr;gap:4px}
 }
 @media (max-width:640px){
+  .mosaic{column-count:1}
+  .showcase__bar{flex-wrap:wrap}
+  .showcase__progress{order:3;flex-basis:100%}
   .hero__title{font-size:clamp(20px,6.4vw,30px)}
   .hero__base{flex-direction:column;align-items:stretch}
   .hero__cta{flex-direction:column;align-items:stretch;gap:12px}
   .hero__meta-r{display:none}
-  .frame,.frame--right,.frame--wide{width:calc(100% - 2 * var(--gutter));margin-left:auto;margin-right:auto}
+  .mosaic{column-count:2}
   .series__grid{grid-template-columns:1fr}
   .crow{grid-template-columns:40px 1fr}
   .crow__meta{display:none}
@@ -599,6 +629,5 @@ html.js .frame.is-in .frame__cap,html:not(.js) .frame__cap{opacity:1;transform:n
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   html.js .reveal{opacity:1;transform:none}
   html.js .hline__in{transform:none}
-  html.js .frame__mask{clip-path:none}
   #air-canvas{display:none}
 }

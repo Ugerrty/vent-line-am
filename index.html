@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400&family=Jost:wght@200;300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://ugerrty.github.io/vent-line-am/">
-<link rel="stylesheet" href="css/main.css?v=14">
+<link rel="stylesheet" href="css/main.css?v=15">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -67,7 +67,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
     </a>
     <nav class="header__nav" aria-label="Разделы страницы">
       <a href="#line" data-scroll data-i18n="nav.line">Решётки</a>
-      <a href="#spaces" data-scroll data-i18n="nav.spaces">Монтаж</a>
+      <a href="#projects" data-scroll data-i18n="nav.spaces">Проекты</a>
       <a href="#design" data-scroll data-i18n="nav.design">Проектирование</a>
       <a href="#service" data-scroll data-i18n="nav.service">Сервис</a>
       <a href="#yerevan" data-scroll data-i18n="nav.yerevan">Ереван</a>
@@ -91,7 +91,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__nav" aria-label="Меню">
     <a href="#line" data-scroll data-i18n="nav.line">Решётки</a>
-    <a href="#spaces" data-scroll data-i18n="nav.spaces">Монтаж</a>
+    <a href="#projects" data-scroll data-i18n="nav.spaces">Проекты</a>
     <a href="#design" data-scroll data-i18n="nav.design">Проектирование</a>
     <a href="#service" data-scroll data-i18n="nav.service">Сервис</a>
     <a href="#yerevan" data-scroll data-i18n="nav.yerevan">Ереван</a>
@@ -123,7 +123,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
       <p class="hero__sub reveal reveal--d2" data-i18n="hero.sub">Проектируем, монтируем и обслуживаем вентиляцию под ключ. Инженерная команда, которой доверяют лучшие адреса Москвы, Дубая и Бангкока.</p>
       <div class="hero__cta reveal reveal--d3">
         <a class="btn btn--gold" href="#contact" data-scroll data-i18n="hero.btn1">Обсудить проект</a>
-        <a class="btn btn--line" href="#spaces" data-scroll data-i18n="hero.btn2">Смотреть монтаж</a>
+        <a class="btn btn--line" href="#projects" data-scroll data-i18n="hero.btn2">Смотреть проекты</a>
       </div>
     </div>
   </div>
@@ -174,33 +174,79 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
   </div>
 </section>
 
-<!-- ══════════ 03 ПРОСТРАНСТВА ══════════ -->
-<section class="spaces" id="spaces">
+<!-- ══════════ 03 ПРОЕКТЫ: галерея + витрина объектов ══════════ -->
+<section class="projects" id="projects">
   <div class="wrap">
-    <p class="tag mono reveal"><i>03</i><span data-i18n="sp.kicker">Монтаж</span></p>
-    <h2 class="h2 reveal reveal--d1" data-i18n="sp.h2">Монтаж, которого не&nbsp;видно</h2>
+    <p class="tag mono reveal"><i>03</i><span data-i18n="pj.kicker">Проекты</span></p>
+    <h2 class="h2 reveal reveal--d1" data-i18n="pj.h2">Смонтировано&nbsp;— и растворилось в интерьере</h2>
+    <p class="lead reveal reveal--d2" data-i18n="pj.lead">Кадры с наших объектов: решётки уже дышат в этих потолках и стенах&nbsp;— просто их не видно.</p>
   </div>
-  <figure class="frame" data-num="01">
-    <div class="frame__mask"><span class="frame__zoom"><img src="assets/ceiling-4.jpg" alt="Тёмный интерьер с линиями света в потолке" loading="lazy" data-parallax></span></div>
-    <figcaption class="frame__cap">
-      <span class="frame__t" data-i18n="fr1.t">Потолок</span>
-      <span class="mono" data-i18n="fr1.x">скрытый монтаж · непрерывные линии · заподлицо со шпаклёвкой</span>
-    </figcaption>
-  </figure>
-  <figure class="frame frame--right" data-num="02">
-    <div class="frame__mask"><span class="frame__zoom"><img src="assets/floor-2.jpg" alt="Напольная решётка в камне у панорамного окна" loading="lazy" data-parallax></span></div>
-    <figcaption class="frame__cap">
-      <span class="frame__t" data-i18n="fr2.t">Пол</span>
-      <span class="mono" data-i18n="fr2.x">монтаж у панорамного стекла · в камень и дерево · под нагрузку</span>
-    </figcaption>
-  </figure>
-  <figure class="frame frame--wide" data-num="03">
-    <div class="frame__mask"><span class="frame__zoom"><img src="assets/wall-4.jpg" alt="Стена со встроенной решёткой заподлицо" loading="lazy" data-parallax></span></div>
-    <figcaption class="frame__cap">
-      <span class="frame__t" data-i18n="fr3.t">Стена</span>
-      <span class="mono" data-i18n="fr3.x">врезка заподлицо с плоскостью · без наличников · под любой RAL</span>
-    </figcaption>
-  </figure>
+  <div class="wrap mosaic">
+    <figure class="mosaic__item reveal"><img src="assets/gal-01.jpg" alt="Столовая с бархатными креслами — скрытая вентиляция в потолке" loading="lazy"></figure>
+    <figure class="mosaic__item reveal reveal--d1"><img src="assets/gal-04.jpg" alt="Домашний кинотеатр с тёплым светом и невидимой вентиляцией" loading="lazy"></figure>
+    <figure class="mosaic__item reveal reveal--d2"><img src="assets/gal-06.jpg" alt="Светлая кухня со щелевыми диффузорами в потолке" loading="lazy"></figure>
+    <figure class="mosaic__item reveal reveal--d1"><img src="assets/gal-05.jpg" alt="Гардеробная с тёплым деревом — вентиляция скрытого монтажа" loading="lazy"></figure>
+    <figure class="mosaic__item reveal reveal--d2"><img src="assets/gal-02.jpg" alt="Гостиная с зелёным диваном — вентиляция за шторной нишей" loading="lazy"></figure>
+    <figure class="mosaic__item reveal"><img src="assets/gal-07.jpg" alt="Гостиная с панорамным видом на город" loading="lazy"></figure>
+  </div>
+  <p class="wrap projects__note mono reveal"><a href="https://www.instagram.com/vent_line.ru/" target="_blank" rel="noopener" data-i18n="pj.note">больше кадров — @vent_line.ru</a></p>
+
+  <div class="showcase reveal">
+    <div class="showcase__track" id="show-track" tabindex="0" aria-label="Витрина проектов, листайте">
+      <article class="showcase__slide">
+        <img src="assets/pr-moscow.jpg" alt="Башни Москва-Сити в сумерках" loading="lazy">
+        <div class="showcase__veil" aria-hidden="true"></div>
+        <div class="showcase__info">
+          <span class="mono" data-i18n="sh1.c">Москва</span>
+          <h3 class="showcase__name">Moscow City</h3>
+        </div>
+      </article>
+      <article class="showcase__slide">
+        <img src="assets/pr-yerevan.jpg" alt="Вечерний Ереван" loading="lazy">
+        <div class="showcase__veil" aria-hidden="true"></div>
+        <div class="showcase__info">
+          <span class="mono" data-i18n="sh2.c">Ереван</span>
+          <h3 class="showcase__name" data-i18n="sh2.t">Ереванский цирк</h3>
+        </div>
+      </article>
+      <article class="showcase__slide">
+        <img src="assets/pr-estate.jpg" alt="Загородная резиденция в сумерках" loading="lazy">
+        <div class="showcase__veil" aria-hidden="true"></div>
+        <div class="showcase__info">
+          <span class="mono" data-i18n="sh3.c">Московская область</span>
+          <h3 class="showcase__name">Agalarov Estate</h3>
+        </div>
+      </article>
+      <article class="showcase__slide">
+        <img src="assets/pr-uae.jpg" alt="Вечерний Дубай" loading="lazy">
+        <div class="showcase__veil" aria-hidden="true"></div>
+        <div class="showcase__info">
+          <span class="mono" data-i18n="sh4.c">ОАЭ</span>
+          <h3 class="showcase__name" data-i18n="sh4.t">Частные дома, Дубай</h3>
+        </div>
+      </article>
+      <article class="showcase__slide">
+        <img src="assets/pr-bangkok.jpg" alt="Бангкок в сумерках" loading="lazy">
+        <div class="showcase__veil" aria-hidden="true"></div>
+        <div class="showcase__info">
+          <span class="mono" data-i18n="sh5.c">Таиланд</span>
+          <h3 class="showcase__name" data-i18n="sh5.t">Резиденции, Бангкок</h3>
+        </div>
+      </article>
+    </div>
+    <div class="wrap showcase__bar">
+      <span class="mono showcase__count" id="show-count" aria-live="polite">01 / 05</span>
+      <div class="showcase__progress" aria-hidden="true"><i id="show-progress"></i></div>
+      <div class="showcase__nav">
+        <button class="showcase__btn" id="show-prev" type="button" aria-label="Предыдущий проект">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg>
+        </button>
+        <button class="showcase__btn" id="show-next" type="button" aria-label="Следующий проект">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ══════════ 04 ТИШИНА ══════════ -->
@@ -301,7 +347,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
       <span>VENT&nbsp;LINE</span>
     </div>
     <nav class="footer__nav" aria-label="Разделы">
-      <a href="#spaces" data-scroll data-i18n="nav.spaces">Монтаж</a>
+      <a href="#projects" data-scroll data-i18n="nav.spaces">Проекты</a>
       <a href="#design" data-scroll data-i18n="nav.design">Проектирование</a>
       <a href="#service" data-scroll data-i18n="nav.service">Сервис</a>
       <a href="#contact" data-scroll data-i18n="nav.contact">Контакт</a>
@@ -319,8 +365,8 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="js/i18n.js?v=12"></script>
-<script src="js/main.js?v=11"></script>
+<script src="js/i18n.js?v=13"></script>
+<script src="js/main.js?v=12"></script>
 <script type="module" src="js/scene.js?v=8"></script>
 </body>
 </html>
