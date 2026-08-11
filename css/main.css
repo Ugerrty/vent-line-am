@@ -449,53 +449,10 @@ html.js .frame.is-in .frame__cap,html:not(.js) .frame__cap{opacity:1;transform:n
 .specs dd{margin-top:9px;font-size:13px;letter-spacing:.03em;color:var(--dim)}
 
 /* ── 05 серии: витрины ────────────────────────────────────────── */
-.series{padding:clamp(90px,13vh,170px) 0}
-.series__grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(20px,2.6vw,34px);
-  margin-top:clamp(44px,6vh,64px);
-}
-.vitrine{display:block}
-.series__head{
-  display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;
-}
-.series__meta{color:var(--faint);font-size:10px;padding-bottom:8px}
-.vitrine figure{
-  background:var(--plinth);border-radius:4px;overflow:hidden;
-  aspect-ratio:4/3;
-  box-shadow:0 0 0 1px rgba(255,255,255,.05);
-  transition:box-shadow .5s var(--ease),transform .5s var(--ease);
-}
-.vitrine:hover figure{
-  box-shadow:0 0 0 1px var(--hair-gold),0 18px 60px -18px rgba(201,169,106,.35);
-  transform:translateY(-4px);
-}
-html[data-theme="light"] .vitrine figure{
-  background:#fff;
-  box-shadow:0 1px 0 rgba(24,22,16,.05),0 26px 54px -28px rgba(30,26,18,.3);
-}
-html[data-theme="light"] .vitrine:hover figure{
-  box-shadow:0 0 0 1px var(--hair-gold),0 30px 60px -26px rgba(30,26,18,.4);
-}
-.vitrine figure img{
-  width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;
-  transition:transform 1s var(--ease);
-}
-.vitrine:hover figure img{transform:scale(1.03)}
-.vitrine__row{
-  display:flex;align-items:baseline;justify-content:space-between;gap:14px;
-  margin-top:16px;
-}
-.vitrine__row h3{
-  font-family:var(--disp);font-weight:300;font-size:14px;letter-spacing:.12em;
-  transition:color .35s var(--ease);
-}
-.vitrine:hover .vitrine__row h3{color:var(--gold-hi)}
-.vitrine__row .mono{color:var(--faint);font-size:9px}
-.vitrine p{margin-top:5px;font-size:13.5px;color:var(--dim)}
-
 /* ── 06 цикл ──────────────────────────────────────────────────── */
 .cycle{padding:clamp(90px,13vh,170px) 0;background:var(--pane)}
+.cycle--plain{background:transparent}
+.cycle .lead{margin-bottom:clamp(10px,2vh,18px)}
 .cycle__list{margin-top:clamp(40px,6vh,60px)}
 .crow{
   display:grid;grid-template-columns:64px 1fr auto;gap:clamp(16px,3vw,44px);
