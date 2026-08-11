@@ -49,10 +49,38 @@ html[data-theme="light"]{
   --header-bg:rgba(237,234,226,.95);
 }
 
-/* армянская версия: Unbounded не содержит армянской письменности */
+/* армянская версия: Unbounded/Jost не содержат армянской письменности.
+   Дисплей — Montserrat Armenian (OFL, широкая геометрия, в паре с Unbounded),
+   текст — Mardoto (Apache 2.0). unicode-range отдаёт армянские глифы этим
+   шрифтам, а латиница в hy-текстах остаётся Unbounded/Jost. */
+@font-face{
+  font-family:"Montserrat Armenian";
+  src:url("../assets/fonts/montserrat-arm.ttf") format("truetype");
+  font-weight:200 500;font-style:normal;font-display:swap;
+  unicode-range:U+0530-058F,U+FB13-FB17;
+}
+@font-face{
+  font-family:"Mardoto";
+  src:url("../assets/fonts/mardoto-light.woff2") format("woff2");
+  font-weight:200 300;font-style:normal;font-display:swap;
+  unicode-range:U+0530-058F,U+FB13-FB17;
+}
+@font-face{
+  font-family:"Mardoto";
+  src:url("../assets/fonts/mardoto-regular.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0530-058F,U+FB13-FB17;
+}
+@font-face{
+  font-family:"Mardoto";
+  src:url("../assets/fonts/mardoto-medium.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap;
+  unicode-range:U+0530-058F,U+FB13-FB17;
+}
 html[lang="hy"]{
-  --disp:"Noto Sans Armenian",system-ui,sans-serif;
-  --text:"Noto Sans Armenian","Jost",system-ui,sans-serif;
+  --disp:"Montserrat Armenian","Unbounded",system-ui,sans-serif;
+  --text:"Mardoto","Jost",system-ui,sans-serif;
+  --mono:"JetBrains Mono","Mardoto",ui-monospace,monospace;
 }
 
 /* кино-главы всегда тёмные — в обеих темах: hero, тишина, контакт, футер */
