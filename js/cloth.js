@@ -20,9 +20,11 @@ canvas.setAttribute('aria-hidden', 'true');
 
 var renderer;
 try {
-  renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  /* antialias выключен сознательно: MSAA на фреймбуфере во всю секцию
+     кладёт Intel HD 4000 на лопатки (2 fps). DPR жёстко 1 по той же причине. */
+  renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true });
 } catch (e) { return; }
-renderer.setPixelRatio(Math.min(1.25, window.devicePixelRatio || 1));
+renderer.setPixelRatio(1);
 
 section.appendChild(canvas);
 document.documentElement.classList.add('has-cloth');
@@ -59,11 +61,12 @@ var VERT = [
 
 var FRAG = [
   'uniform sampler2D uMap;',
+  'uniform float uBright;',                       /* аналог --img-filter: brightness(.92) тёмной темы */
   'varying vec2 vUv;',
   'varying float vShade;',
   'void main(){',
   '  vec4 c = texture2D(uMap, vUv);',
-  '  gl_FragColor = vec4(c.rgb * vShade, 1.0);',
+  '  gl_FragColor = vec4(c.rgb * vShade * uBright, 1.0);',
   '}'
 ].join('\n');
 
@@ -96,6 +99,7 @@ frames.forEach(function(frame, i){
     fragmentShader: FRAG,
     uniforms: {
       uMap:   { value: null },
+      uBright:{ value: 1 },
       uTime:  { value: 0 },
       uAmp:   { value: 0 },
       uCurl:  { value: 0 },
@@ -139,9 +143,15 @@ frames.forEach(function(frame, i){
     t.dispose();
     paper.imgAspect = c.width / c.height;
     mat.uniforms.uMap.value = tex;
+    paper.tex = tex;
     coverUv(paper);
+    tryStart(paper);
+  }, undefined, function(){
+    /* текстура не доехала — возвращаем этому кадру обычный DOM-снимок */
+    paper.failed = true;
+    frame.classList.add('cloth-fallback');
   });
-  frame.addEventListener('mouseenter', function(){ paper.hover = 1; });
+  frame.addEventListener('mouseenter', function(){ paper.hover = 1; wake(); });
   papers.push(paper);
 });
 
@@ -189,23 +199,40 @@ function outCubic(t){ return 1 - Math.pow(1 - t, 3); }
 function outBack(t){ var s = 1.2; t -= 1; return 1 + t * t * ((s + 1) * t + s); }
 
 var visible = false, rafId = 0;
+/* сторож производительности: если кадр стабильно дольше 45 мс,
+   выключаем вечное колыхание — листы замирают после посадки */
+var ema = 16, ticks = 0, lastTick = 0, lowPower = false;
 
 function frameTick(ts){
   rafId = 0;
   if (!visible || document.hidden) return;
 
+  if (lastTick) {
+    var dt = ts - lastTick;
+    if (dt < 500) {
+      ema = ema * 0.9 + dt * 0.1;
+      ticks++;
+      if (!lowPower && ticks > 30 && ema > 45) lowPower = true;
+    }
+  }
+  lastTick = ts;
+
+  var needRender = false, keepLooping = false;
+
   papers.forEach(function(p){
-    if (!p.t0) return;
+    if (!p.t0 || !p.inView) return;
     var t = (ts - p.t0) / 1000;
-    if (t <= 0) { wake(); return; }
+    if (t <= 0) { keepLooping = true; return; }
     p.mesh.visible = true;
     p.shadow.visible = true;
     var u = p.mat.uniforms;
     u.uTime.value = ts / 1000;
     var A = p.ampScale;
+    needRender = true;
 
     var lt = t / DUR;
     if (lt < 1) {
+      keepLooping = true;
       var eP = outBack(Math.min(1, lt));
       var eR = outCubic(Math.min(1, lt));
       var dx = (420 + (p.seed % 1) * 180) * A;
@@ -226,29 +253,48 @@ function frameTick(ts){
       p.mesh.position.set(p.x, p.y, 0);
       p.mesh.rotation.set(0, 0, 0);
       u.uCurl.value = 0;
-      /* щелчок фиксации: всплеск и экспоненциальное затухание */
-      var snap = Math.exp(-(t - p.snapT) * 2.6) * 8 * A;
-      /* порывы ветра: биение двух медленных синусов, только положительная фаза */
-      var g = Math.sin(t * 0.53 + p.seed) * Math.sin(t * 0.221 + p.seed * 3.1);
-      var gust = Math.max(0, g) * 2.6 * A;
       p.hover *= 0.94;
-      u.uAmp.value = p.frozen ? (p.frozenAmp || 0) : 1.8 * A + snap + gust + p.hover * 7 * A;
+      if (lowPower) {
+        /* слабое железо: короткое затухание после посадки или ховера — и покой */
+        var tail = Math.exp(-(t - p.snapT) * 2.6) * 8 * A + p.hover * 7 * A;
+        u.uAmp.value = p.frozen ? (p.frozenAmp || 0) : tail;
+        if (tail > 0.15) keepLooping = true;
+      } else {
+        /* щелчок фиксации: всплеск и экспоненциальное затухание */
+        var snap = Math.exp(-(t - p.snapT) * 2.6) * 8 * A;
+        /* порывы ветра: биение двух медленных синусов, только положительная фаза */
+        var g = Math.sin(t * 0.53 + p.seed) * Math.sin(t * 0.221 + p.seed * 3.1);
+        var gust = Math.max(0, g) * 2.6 * A;
+        u.uAmp.value = p.frozen ? (p.frozenAmp || 0) : 1.8 * A + snap + gust + p.hover * 7 * A;
+        keepLooping = true;
+      }
       p.shadow.material.opacity = 0.14 + Math.min(0.07, u.uAmp.value * 0.004);
       p.shadow.position.set(p.x + 12, p.y - 16, -20);
     }
   });
 
-  renderer.render(scene, camera);
-  rafId = requestAnimationFrame(frameTick);
+  if (needRender) renderer.render(scene, camera);
+  if (keepLooping) rafId = requestAnimationFrame(frameTick);
+  else lastTick = 0;
 }
 
 function wake(){
-  if (!rafId && visible && !document.hidden) rafId = requestAnimationFrame(frameTick);
+  if (!rafId && visible && !document.hidden) { lastTick = 0; rafId = requestAnimationFrame(frameTick); }
 }
 
-/* секция видима → рендерим; каждый кадр стартует, когда доезжает сам */
+/* старт полёта только когда кадр доехал И текстура готова */
+function tryStart(p){
+  if (p.wantStart && p.tex && !p.t0 && !p.failed) {
+    if (!laidOut) layout();
+    p.t0 = performance.now() + 120;
+    wake();
+  }
+}
+
+/* секция видима → рендерим; каждый кадр стартует, когда доезжает сам.
+   IO отдаёт ПАЧКУ записей (старые первыми) — актуально последнее состояние */
 var secIo = new IntersectionObserver(function(en){
-  visible = en[0].isIntersecting;
+  visible = en[en.length - 1].isIntersecting;
   if (visible && !laidOut) layout();
   wake();
 }, { threshold: 0.02, rootMargin: '120px 0px' });
@@ -258,16 +304,32 @@ var frameIo = new IntersectionObserver(function(entries){
   entries.forEach(function(en){
     if (!en.isIntersecting) return;
     papers.forEach(function(p){
-      if (p.frame === en.target && !p.t0) {
-        if (!laidOut) layout();
-        p.t0 = performance.now() + 120;
-      }
+      if (p.frame === en.target) { p.wantStart = true; tryStart(p); }
     });
     frameIo.unobserve(en.target);
   });
-  wake();
 }, { threshold: 0.22 });
 papers.forEach(function(p){ frameIo.observe(p.frame); });
+
+/* видимость каждого листа: вне вьюпорта его не обсчитываем и не рисуем */
+var visIo = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    papers.forEach(function(p){
+      if (p.frame === en.target) p.inView = en.isIntersecting;
+    });
+  });
+  wake();
+}, { rootMargin: '200px 0px' });
+papers.forEach(function(p){ visIo.observe(p.frame); });
+
+/* яркость листа следует за темой (--img-filter: brightness(.92) в тёмной) */
+function applyBright(){
+  var light = document.documentElement.getAttribute('data-theme') === 'light';
+  papers.forEach(function(p){ p.mat.uniforms.uBright.value = light ? 1 : 0.92; });
+  wake();
+}
+applyBright();
+document.addEventListener('vl:theme', applyBright);
 
 document.addEventListener('visibilitychange', wake);
 window.addEventListener('resize', function(){ if (laidOut) layout(); });
@@ -284,7 +346,10 @@ window.__cloth = {
   finish: function(){
     layout();
     var now = performance.now();
-    papers.forEach(function(p){ p.t0 = now - 20000; p.landed = false; p.frozen = false; });
+    papers.forEach(function(p){
+      if (!p.tex) return;
+      p.t0 = now - 20000; p.landed = false; p.frozen = false; p.inView = true;
+    });
     visible = true;
     wake();
   },

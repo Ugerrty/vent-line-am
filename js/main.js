@@ -253,7 +253,7 @@ document.addEventListener('vl:theme', function(){
   document.addEventListener('visibilitychange', setRun);
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function(en){
-      visible = en[0].isIntersecting;
+      visible = en[en.length - 1].isIntersecting;
       setRun();
     }, { threshold: 0.02 }).observe(hero);
   } else setRun();
