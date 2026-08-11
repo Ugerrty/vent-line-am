@@ -107,10 +107,6 @@ em{font-style:normal}
   box-shadow:0 0 24px 2px rgba(201,169,106,.5);
   transform:scaleX(0);transform-origin:left center;
 }
-.preloader__counter{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-220%);
-  color:var(--gold-hi);
-}
 .preloader.is-done{opacity:0;visibility:hidden}
 html:not(.js) .preloader{display:none}
 
@@ -381,6 +377,14 @@ html:not(.has-scene) .line__fallback{display:block}
 
 /* ── 03 пространства: кино-раскрытия ──────────────────────────── */
 .spaces{padding:clamp(100px,14vh,180px) 0 clamp(40px,6vh,80px)}
+.spaces{position:relative}
+.cloth-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+/* листы рисует WebGL: DOM-кадру остаётся рамка-паспарту, вайп и зум выключены */
+html.has-cloth .frame__zoom img{visibility:hidden}
+html.has-cloth.js .frame__mask,
+html.has-cloth.js .frame--right .frame__mask,
+html.has-cloth.js .frame--wide .frame__mask{clip-path:none;transition:none}
+html.has-cloth.js .frame__zoom{transform:none;transition:none}
 .frame{
   position:relative;
   margin:clamp(70px,10vh,130px) auto 0;

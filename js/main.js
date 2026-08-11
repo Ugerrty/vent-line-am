@@ -18,13 +18,12 @@ function boot(){
   startReveals();
 }
 if (pre && !reduced && !document.hidden && document.documentElement.classList.contains('js')) {
-  var mm = $('#preloader-mm'), pLine = $('#preloader-line');
+  var pLine = $('#preloader-line');
   var t0 = null, DUR = 800;
   var step = function(ts){
     if (!t0) t0 = ts;
     var t = Math.min(1, (ts - t0) / DUR);
     var e = 1 - Math.pow(1 - t, 3);
-    if (mm) mm.textContent = Math.round(e * 20);
     if (pLine) pLine.style.transform = 'scaleX(' + e + ')';
     if (t < 1) requestAnimationFrame(step);
     else setTimeout(function(){ pre.classList.add('is-done'); boot(); }, 350);
