@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 
-var HTML_KEYS = {};
+var HTML_KEYS = { 'sh.q': 1 };
 
 var DICT = {
 en: {
@@ -31,6 +31,8 @@ en: {
   'pj.h2':'Installed — and dissolved into the interior',
   'pj.lead':'Frames from our sites: the grilles already breathe in these ceilings and walls — you just can’t see them.',
   'pj.note':'more frames — @vent_line.ru',
+  'sh.q':'The ventilation here is ours — <em>you just can’t see it</em>',
+  'stp.k':'Live feed',
   'sh1.c':'Moscow','sh2.c':'Yerevan','sh2.t':'Yerevan Circus',
   'sh3.c':'Moscow region','sh4.c':'UAE','sh4.t':'Private houses, Dubai',
   'sh5.c':'Thailand','sh5.t':'Residences, Bangkok',
