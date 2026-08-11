@@ -25,6 +25,7 @@ en: {
   'line.f2':'RAL coating · anodising · veneer',
   'unit.mm':'mm',
   'line.l1':'visible slot','line.l2b':'any','line.l2':'length, no joints','line.l3':'RAL · anodising · veneer',
+  'line.color':'Colour','line.cb':'Black','line.cw':'White',
   'sp.kicker':'Spaces',
   'sp.h2':'It works at night. Nobody knows where',
   'fr1.t':'Ceiling','fr1.x':'S PRO · continuous lines · 20 mm',

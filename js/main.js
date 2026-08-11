@@ -160,6 +160,32 @@ try {
   applyTheme(localStorage.getItem('vl-theme') === 'light', false);
 } catch(e){ applyTheme(false, false); }
 
+/* ── цвет решётки: чёрный / белый ─────────────────────────────── */
+var grilleBtns = $$('.grille__btn');
+function applyGrille(color, save){
+  document.documentElement.setAttribute('data-grille', color);
+  grilleBtns.forEach(function(b){
+    b.setAttribute('aria-pressed', b.getAttribute('data-grille') === color ? 'true' : 'false');
+  });
+  if (save) { try { localStorage.setItem('vl-grille', color); } catch(e){} }
+  document.dispatchEvent(new CustomEvent('vl:grille'));
+}
+function defaultGrille(){
+  /* по умолчанию: в тёмной теме — белая решётка, в светлой — чёрная */
+  return document.documentElement.getAttribute('data-theme') === 'light' ? 'black' : 'white';
+}
+grilleBtns.forEach(function(b){
+  b.addEventListener('click', function(){ applyGrille(b.getAttribute('data-grille'), true); });
+});
+var savedGrille = null;
+try { savedGrille = localStorage.getItem('vl-grille'); } catch(e){}
+applyGrille(savedGrille || defaultGrille(), false);
+document.addEventListener('vl:theme', function(){
+  var chosen = null;
+  try { chosen = localStorage.getItem('vl-grille'); } catch(e){}
+  if (!chosen) applyGrille(defaultGrille(), false);
+});
+
 /* ── «живой воздух»: частицы поверх фото (прозрачный канвас) ──── */
 (function(){
   var cv = $('#air-canvas');
@@ -167,13 +193,13 @@ try {
   var ctx = cv.getContext('2d');
   var hero = $('#hero');
   var W = 0, H = 0, parts = [], running = false, rafId = 0, t = 0;
-  var c1 = 'rgba(201,169,106,.4)', c2 = 'rgba(255,255,255,.14)';
+  /* hero всегда тёмный — цвета частиц берём из его собственной области видимости */
+  var c1 = 'rgba(225,196,133,.4)', c2 = 'rgba(255,255,255,.13)';
   function readColors(){
-    var cs = getComputedStyle(document.documentElement);
+    var cs = getComputedStyle(hero);
     c1 = (cs.getPropertyValue('--p1') || c1).trim();
     c2 = (cs.getPropertyValue('--p2') || c2).trim();
   }
-  document.addEventListener('vl:theme', readColors);
   readColors();
   var TRAIL = 6;
   function resize(){
