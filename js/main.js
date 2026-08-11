@@ -91,21 +91,43 @@ $$('[data-scroll]').forEach(function(a){
   a.addEventListener('click', function(){ closeMenu(); });
 });
 
-/* ── появления + кадры-раскрытия ──────────────────────────────── */
+/* ── появления + кадры-раскрытия (IO + scroll-страховка) ──────── */
 function startReveals(){
   var els = $$('.reveal, .frame');
-  if (!('IntersectionObserver' in window) || reduced) {
+  if (reduced) {
     els.forEach(function(el){ el.classList.add('is-in'); });
     return;
   }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if (!en.isIntersecting) return;
-      en.target.classList.add('is-in');
-      io.unobserve(en.target);
+  var io = null;
+  function fire(el){
+    el.classList.add('is-in');
+    if (io) io.unobserve(el);
+  }
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) fire(en.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  }
+  /* страховка: прямой замер по скроллу — если IO промолчал */
+  var pending = els.slice(), ticking = false;
+  function sweep(){
+    ticking = false;
+    var limit = window.innerHeight * 0.94;
+    pending = pending.filter(function(el){
+      if (el.classList.contains('is-in')) return false;
+      if (el.getBoundingClientRect().top < limit) { fire(el); return false; }
+      return true;
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
-  els.forEach(function(el){ io.observe(el); });
+    if (!pending.length) window.removeEventListener('scroll', onS);
+  }
+  function onS(){
+    if (!ticking) { ticking = true; requestAnimationFrame(sweep); }
+  }
+  window.addEventListener('scroll', onS, { passive: true });
+  sweep();
 }
 
 /* ── параллакс фото в кадрах ──────────────────────────────────── */
@@ -118,45 +140,78 @@ if (hasST && !reduced) {
   });
 }
 
-/* ── «живой воздух»: золотые частицы в hero ───────────────────── */
+/* ── тема: день / ночь ────────────────────────────────────────── */
+var themeBtn = $('#theme');
+function applyTheme(light, save){
+  document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
+  if (themeBtn) {
+    themeBtn.setAttribute('aria-pressed', light ? 'true' : 'false');
+    themeBtn.setAttribute('aria-label', light ? 'Ночной режим' : 'Дневной режим');
+  }
+  if (save) { try { localStorage.setItem('vl-theme', light ? 'light' : 'dark'); } catch(e){} }
+  document.dispatchEvent(new CustomEvent('vl:theme'));
+}
+if (themeBtn) {
+  themeBtn.addEventListener('click', function(){
+    applyTheme(document.documentElement.getAttribute('data-theme') !== 'light', true);
+  });
+}
+try {
+  applyTheme(localStorage.getItem('vl-theme') === 'light', false);
+} catch(e){ applyTheme(false, false); }
+
+/* ── «живой воздух»: частицы поверх фото (прозрачный канвас) ──── */
 (function(){
   var cv = $('#air-canvas');
   if (!cv || reduced) return;
   var ctx = cv.getContext('2d');
   var hero = $('#hero');
   var W = 0, H = 0, parts = [], running = false, rafId = 0, t = 0;
+  var c1 = 'rgba(201,169,106,.4)', c2 = 'rgba(255,255,255,.14)';
+  function readColors(){
+    var cs = getComputedStyle(document.documentElement);
+    c1 = (cs.getPropertyValue('--p1') || c1).trim();
+    c2 = (cs.getPropertyValue('--p2') || c2).trim();
+  }
+  document.addEventListener('vl:theme', readColors);
+  readColors();
+  var TRAIL = 6;
   function resize(){
     var r = hero.getBoundingClientRect();
     var w = Math.round(r.width), h = Math.round(r.height);
     if (w === W && h === H) return;
     W = cv.width = w; H = cv.height = h;
-    var n = Math.min(190, Math.round(W * H / 14000));
+    var n = Math.min(150, Math.round(W * H / 16000));
     parts = [];
     for (var i = 0; i < n; i++) parts.push(spawn(true));
-    ctx.fillStyle = '#07080B';
-    ctx.fillRect(0, 0, W, H);
   }
   function spawn(anywhere){
-    return { x: anywhere ? Math.random() * W : -10, y: Math.random() * H, g: Math.random() < 0.35 };
+    return {
+      x: anywhere ? Math.random() * W : -12,
+      y: Math.random() * H,
+      g: Math.random() < 0.4,
+      hist: []
+    };
   }
   function frame(){
     if (!running) return;
     t += 1;
-    ctx.fillStyle = 'rgba(7,8,11,0.08)';
-    ctx.fillRect(0, 0, W, H);
+    ctx.clearRect(0, 0, W, H);
     for (var i = 0; i < parts.length; i++) {
       var p = parts[i];
       var a = Math.sin(p.x * 0.0015 + t * 0.005) * 0.8 + Math.cos(p.y * 0.002 - t * 0.0035) * 0.8;
-      var nx = p.x + Math.cos(a) * 0.45 + 0.55;
-      var ny = p.y + Math.sin(a) * 0.3 + 0.04;
-      ctx.strokeStyle = p.g ? 'rgba(201,169,106,0.20)' : 'rgba(255,255,255,0.06)';
+      p.hist.push([p.x, p.y]);
+      if (p.hist.length > TRAIL) p.hist.shift();
+      p.x += Math.cos(a) * 0.45 + 0.6;
+      p.y += Math.sin(a) * 0.3 + 0.05;
+      ctx.strokeStyle = p.g ? c1 : c2;
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(nx, ny);
+      ctx.moveTo(p.hist[0][0], p.hist[0][1]);
+      for (var k = 1; k < p.hist.length; k++) ctx.lineTo(p.hist[k][0], p.hist[k][1]);
+      ctx.lineTo(p.x, p.y);
       ctx.stroke();
-      p.x = nx; p.y = ny;
-      if (p.x > W + 10 || p.y > H + 10 || p.y < -10) parts[i] = spawn(false);
+      if (p.x > W + 12 || p.y > H + 12 || p.y < -12) parts[i] = spawn(false);
     }
     rafId = requestAnimationFrame(frame);
   }
@@ -177,6 +232,25 @@ if (hasST && !reduced) {
       setRun();
     }, { threshold: 0.02 }).observe(hero);
   } else setRun();
+})();
+
+/* ── живые часы ([data-clock][data-tz]) ───────────────────────── */
+(function(){
+  var clocks = $$('[data-clock]');
+  if (!clocks.length) return;
+  function tick(){
+    var now = new Date();
+    clocks.forEach(function(el){
+      try {
+        el.textContent = new Intl.DateTimeFormat('ru-RU', {
+          hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+          timeZone: el.getAttribute('data-tz')
+        }).format(now);
+      } catch(e){}
+    });
+  }
+  tick();
+  setInterval(tick, 30000);
 })();
 
 /* ── форма → письмо ───────────────────────────────────────────── */

@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400&family=Jost:wght@200;300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://ugerrty.github.io/vent-line-am/">
-<link rel="stylesheet" href="css/main.css?v=7">
+<link rel="stylesheet" href="css/main.css?v=8">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -71,9 +71,14 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
       <a href="#line" data-scroll data-i18n="nav.line">Линия</a>
       <a href="#spaces" data-scroll data-i18n="nav.spaces">Пространства</a>
       <a href="#series" data-scroll data-i18n="nav.series">Серии</a>
+      <a href="#yerevan" data-scroll data-i18n="nav.yerevan">Ереван</a>
       <a href="#contact" data-scroll data-i18n="nav.contact">Контакт</a>
     </nav>
     <div class="header__side">
+      <button class="theme" id="theme" type="button" aria-label="Дневной режим" aria-pressed="false">
+        <svg class="theme__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5 5l1.8 1.8M17.2 17.2 19 19M19 5l-1.8 1.8M6.8 17.2 5 19"/></svg>
+        <svg class="theme__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 13.6A8.3 8.3 0 0 1 10.4 4a8.3 8.3 0 1 0 9.6 9.6Z"/></svg>
+      </button>
       <div class="lang" role="group" aria-label="Язык страницы">
         <button class="lang__btn is-on" type="button" data-lang="ru" lang="ru" aria-label="Русский" aria-pressed="true">RU</button>
         <button class="lang__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
@@ -90,6 +95,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
     <a href="#line" data-scroll data-i18n="nav.line">Линия</a>
     <a href="#spaces" data-scroll data-i18n="nav.spaces">Пространства</a>
     <a href="#series" data-scroll data-i18n="nav.series">Серии</a>
+    <a href="#yerevan" data-scroll data-i18n="nav.yerevan">Ереван</a>
     <a href="#contact" data-scroll data-i18n="nav.contact">Контакт</a>
   </nav>
   <div class="menu__foot mono">
@@ -103,6 +109,9 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 
 <!-- ══════════ HERO: тьма и линия света ══════════ -->
 <section class="hero" id="hero">
+  <figure class="hero__photo" aria-hidden="true">
+    <img src="assets/ceiling-4.jpg" alt="" fetchpriority="high">
+  </figure>
   <canvas id="air-canvas" aria-hidden="true"></canvas>
   <div class="hero__beam" aria-hidden="true"></div>
   <div class="hero__inner">
@@ -133,24 +142,33 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
       <span data-i18n="mf.a">С 2011 года мы делаем инженерию невидимой.</span>
       <em data-i18n="mf.b">В интерьере остаётся тонкая линия и тихий воздух</em><span data-i18n="mf.c">&nbsp;— всё остальное скрыто в архитектуре. Москва, Дубай, Бангкок, города СНГ. Теперь&nbsp;— Ереван.</span>
     </p>
+    <ul class="manifest__facts reveal reveal--d2">
+      <li><b>2011</b><span data-i18n="mf.f1">год основания производства</span></li>
+      <li><b>12</b><span data-i18n="mf.f2">серий решёток</span></li>
+      <li><b>30+</b><span data-i18n="mf.f3">моделей под заказ</span></li>
+      <li><b>4</b><span data-i18n="mf.f4">направления поставок</span></li>
+    </ul>
   </div>
 </section>
 
-<!-- ══════════ 02 ЛИНИЯ: 3D ══════════ -->
+<!-- ══════════ 02 ЛИНИЯ: золотая решётка ══════════ -->
 <section class="line" id="line">
-  <div class="line__pin" id="line-pin">
-    <canvas id="line-canvas" aria-hidden="true"></canvas>
-    <img class="line__fallback" src="assets/render-spro2.jpg" alt="Профиль щелевой решётки Vent-Line" loading="lazy">
-    <div class="line__hud">
-      <p class="tag mono reveal"><i>02</i><span data-i18n="line.kicker">Линия</span></p>
-      <h2 class="h2 reveal reveal--d1" data-i18n="line.h2">Непрерывная линия. Любой длины.</h2>
-      <p class="line__x reveal reveal--d2" data-i18n="line.x">Экструдированный алюминиевый профиль без видимых стыков&nbsp;— проведите взглядом, как по готовому потолку.</p>
-    </div>
-    <div class="line__facts mono" aria-hidden="true">
-      <span>SLOT&nbsp;20–50&nbsp;MM</span>
-      <span data-i18n="line.f2">окраска RAL · анодирование · шпон</span>
-      <span>25–1500&nbsp;M³/H</span>
-    </div>
+  <canvas id="line-canvas" aria-hidden="true"></canvas>
+  <img class="line__fallback" src="assets/render-spro2.jpg" alt="Профиль щелевой решётки Vent-Line" loading="lazy">
+  <div class="line__hud">
+    <p class="tag mono reveal"><i>02</i><span data-i18n="line.kicker">Линия</span></p>
+    <h2 class="h2 reveal reveal--d1" data-i18n="line.h2">Непрерывная линия. Любой длины.</h2>
+    <p class="line__x reveal reveal--d2" data-i18n="line.x">Экструдированный алюминиевый профиль без видимых стыков&nbsp;— проведите взглядом, как по готовому потолку.</p>
+    <ul class="line__list reveal reveal--d3">
+      <li><b>20–50&nbsp;<i data-i18n="unit.mm">мм</i></b><span data-i18n="line.l1">видимая щель</span></li>
+      <li><b data-i18n="line.l2b">любая</b><span data-i18n="line.l2">длина без стыков</span></li>
+      <li><b>RAL</b><span data-i18n="line.l3">окраска · анодирование · шпон</span></li>
+    </ul>
+  </div>
+  <div class="line__facts mono" aria-hidden="true">
+    <span>SLOT&nbsp;20–50&nbsp;MM</span>
+    <span data-i18n="line.f2">окраска RAL · анодирование · шпон</span>
+    <span>25–1500&nbsp;M³/H</span>
   </div>
 </section>
 
@@ -203,8 +221,13 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 <!-- ══════════ 05 СЕРИИ: витрины ══════════ -->
 <section class="series" id="series">
   <div class="wrap">
-    <p class="tag mono reveal"><i>05</i><span data-i18n="se.kicker">Серии</span></p>
-    <h2 class="h2 reveal reveal--d1" data-i18n="se.h2">Каталог&nbsp;— как витрины в тёмной галерее</h2>
+    <div class="series__head">
+      <div>
+        <p class="tag mono reveal"><i>05</i><span data-i18n="se.kicker">Серии</span></p>
+        <h2 class="h2 reveal reveal--d1" data-i18n="se.h2">Каталог&nbsp;— как витрины в галерее</h2>
+      </div>
+      <p class="series__meta mono reveal reveal--d2" data-i18n="se.meta">12 серий · 30+ моделей · от 5 дней</p>
+    </div>
     <p class="lead reveal reveal--d2" data-i18n="se.lead">Двенадцать серий для потолка, стен и пола. Каждая линия изготавливается под размеры проекта&nbsp;— от&nbsp;5&nbsp;дней.</p>
   </div>
   <div class="series__grid wrap">
@@ -247,12 +270,31 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
     <p class="tag mono reveal"><i>06</i><span data-i18n="cy.kicker">Полный цикл</span></p>
     <h2 class="h2 reveal reveal--d1" data-i18n="cy.h2">Один договор&nbsp;— от проекта до тихого воздуха</h2>
     <ol class="cycle__list">
-      <li class="crow reveal"><span class="mono">01</span><div><h3 data-i18n="cy1.t">Проектирование</h3><p data-i18n="cy1.x">Раздел вентиляции: воздухообмен, аэродинамика, спецификации. Документация за один день, BIM-семейства Revit.</p></div></li>
-      <li class="crow reveal"><span class="mono">02</span><div><h3 data-i18n="cy2.t">Производство</h3><p data-i18n="cy2.x">Собственное производство в Московской области: алюминий, порошковая окраска, анодирование, шпон. От пяти дней.</p></div></li>
-      <li class="crow reveal"><span class="mono">03</span><div><h3 data-i18n="cy3.t">Увлажнение</h3><p data-i18n="cy3.x">Форсуночное увлажнение высокого давления&nbsp;— так же невидимо, как решётки. 40–60&nbsp;% влажности круглый год.</p></div></li>
-      <li class="crow reveal"><span class="mono">04</span><div><h3 data-i18n="cy4.t">Монтаж и сдача</h3><p data-i18n="cy4.x">Наши бригады: черновой и чистовой этап, пусконаладка, сдача по акту. В Ереване&nbsp;— собственная команда.</p></div></li>
+      <li class="crow reveal"><span class="mono">01</span><div><h3 data-i18n="cy1.t">Проектирование</h3><p data-i18n="cy1.x">Раздел вентиляции: воздухообмен, аэродинамика, спецификации. Документация за один день, BIM-семейства Revit.</p></div><span class="crow__meta mono" data-i18n="cy1.m">1&nbsp;день</span></li>
+      <li class="crow reveal"><span class="mono">02</span><div><h3 data-i18n="cy2.t">Производство</h3><p data-i18n="cy2.x">Собственное производство в Московской области: алюминий, порошковая окраска, анодирование, шпон. От пяти дней.</p></div><span class="crow__meta mono" data-i18n="cy2.m">от&nbsp;5&nbsp;дней</span></li>
+      <li class="crow reveal"><span class="mono">03</span><div><h3 data-i18n="cy3.t">Увлажнение</h3><p data-i18n="cy3.x">Форсуночное увлажнение высокого давления&nbsp;— так же невидимо, как решётки. 40–60&nbsp;% влажности круглый год.</p></div><span class="crow__meta mono">40–60%&nbsp;RH</span></li>
+      <li class="crow reveal"><span class="mono">04</span><div><h3 data-i18n="cy4.t">Монтаж и сдача</h3><p data-i18n="cy4.x">Наши бригады: черновой и чистовой этап, пусконаладка, сдача по акту. В Ереване&nbsp;— собственная команда.</p></div><span class="crow__meta mono" data-i18n="cy4.m">под&nbsp;ключ</span></li>
     </ol>
     <p class="cycle__note mono reveal" data-i18n="cy.note">Поставки: Россия · СНГ · ОАЭ · Таиланд · в Армению — без пошлин (ЕАЭС, EAC)</p>
+  </div>
+</section>
+
+<!-- ══════════ 07 ЕРЕВАН ══════════ -->
+<section class="yerevan" id="yerevan">
+  <div class="yerevan__horizon" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="tag mono reveal"><i>07</i><span data-i18n="ye.kicker">Новая глава</span></p>
+    <h2 class="yerevan__title reveal reveal--d1" data-i18n="ye.h2">Ереван</h2>
+    <p class="yerevan__x reveal reveal--d2" data-i18n="ye.lead">Армения строит рекордно много премиального жилья&nbsp;— а сегмента невидимой вентиляции на рынке ещё нет. Мы приходим со всем циклом сразу: проектирование, производство, увлажнение и собственные монтажные бригады в&nbsp;Ереване.</p>
+    <ul class="yerevan__rows reveal reveal--d3">
+      <li><b data-i18n="ye.r1b">Без пошлин и таможни</b><span data-i18n="ye.r1">единое пространство ЕАЭС, сертификация EAC действует в Армении</span></li>
+      <li><b data-i18n="ye.r2b">Свои бригады в Ереване</b><span data-i18n="ye.r2">монтаж, пусконаладка и сдача по акту&nbsp;— без субподряда</span></li>
+      <li><b data-i18n="ye.r3b">48 часов</b><span data-i18n="ye.r3">предварительная спецификация и смета по плану этажа</span></li>
+    </ul>
+    <div class="yerevan__meta mono reveal reveal--d3" aria-hidden="true">
+      <span>40.1872°&nbsp;N&nbsp;·&nbsp;44.5152°&nbsp;E</span>
+      <span class="yerevan__clocks"><i data-i18n="ye.msk">Москва</i>&nbsp;<b data-clock data-tz="Europe/Moscow">—:—</b>&nbsp;&nbsp;·&nbsp;&nbsp;<i data-i18n="ye.evn">Ереван</i>&nbsp;<b data-clock data-tz="Asia/Yerevan">—:—</b></span>
+    </div>
   </div>
 </section>
 
@@ -310,8 +352,8 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="js/i18n.js?v=7"></script>
-<script src="js/main.js?v=7"></script>
-<script type="module" src="js/scene.js?v=3"></script>
+<script src="js/i18n.js?v=8"></script>
+<script src="js/main.js?v=8"></script>
+<script type="module" src="js/scene.js?v=4"></script>
 </body>
 </html>
