@@ -182,11 +182,12 @@ function layout(){
      свободен. Узкие экраны: профиль по центру резерв-полосы (padding-bottom:72vw),
      камера ближе и с лёгким разворотом — «продуктовый постамент». */
   if (narrow) {
-    camera.position.set(0, 0.5, 12.2);
-    camera.lookAt(0.15, -0.1, 0);
-    group.rotation.set(-0.13, -0.12, 0);
+    /* диагональная продуктовая композиция — как рендеры серий в каталоге */
+    camera.position.set(0, 0.4, 18.0);
+    camera.lookAt(0, -0.1, 0);
+    group.rotation.set(-0.2, -0.32, -0.5);
     var V = camera.position.z * Math.tan(camera.fov * Math.PI / 360);
-    group.position.set(0.5, V * (0.72 * camera.aspect - 1) - 0.12, 0);
+    group.position.set(0.15, V * (0.96 * camera.aspect - 1) - 0.7, 0);
   } else {
     camera.position.set(0, 0.4, 8.0);
     camera.lookAt(0.6, -0.15, 0);

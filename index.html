@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400&family=Jost:wght@200;300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://ugerrty.github.io/vent-line-am/">
-<link rel="stylesheet" href="css/main.css?v=21">
+<link rel="stylesheet" href="css/main.css?v=22">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -43,6 +43,19 @@
 </script>
 <script>
 document.documentElement.classList.add('js');
+/* армянский восстанавливаем ДО первой отрисовки и сразу греем шрифты —
+   иначе до конца загрузки страницы армянский рисуется системным шрифтом */
+try {
+  if (localStorage.getItem('vl-lang') === 'hy') {
+    document.documentElement.lang = 'hy';
+    ['mardoto-light','mardoto-regular','mardoto-thin'].forEach(function(n){
+      var l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2';
+      l.href = 'assets/fonts/' + n + '.woff2'; l.crossOrigin = 'anonymous';
+      document.head.appendChild(l);
+    });
+  }
+} catch(e){}
 setTimeout(function(){ if(!window.__vlReady) document.documentElement.classList.remove('js'); }, 3500);
 setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.classList.add('is-done'); }, 6000);
 </script>
@@ -444,6 +457,6 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="js/i18n.js?v=19"></script>
 <script src="js/main.js?v=12"></script>
-<script type="module" src="js/scene.js?v=10"></script>
+<script type="module" src="js/scene.js?v=14"></script>
 </body>
 </html>
