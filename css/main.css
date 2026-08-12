@@ -82,6 +82,14 @@ html[lang="hy"]{
   --text:"Mardoto","Jost",system-ui,sans-serif;
   --mono:"JetBrains Mono","Mardoto",ui-monospace,monospace;
 }
+/* CSS-капс превращает և в архаичное ԵՒ (եւ юньком) — капсим армянские
+   строки вручную в словаре, сохраняя союз «և» и современное ԵՎ в словах */
+html[lang="hy"] .mono,
+html[lang="hy"] .menu__nav a,
+html[lang="hy"] .hero__title,
+html[lang="hy"] .showcase__name,
+html[lang="hy"] .crow h3,
+html[lang="hy"] .yerevan__title{text-transform:none}
 
 /* кино-главы всегда тёмные — в обеих темах: hero, тишина, контакт, футер */
 .hero,.silence,.contact,.footer{
