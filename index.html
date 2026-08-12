@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400&family=Jost:wght@200;300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://ugerrty.github.io/vent-line-am/">
-<link rel="stylesheet" href="css/main.css?v=19">
+<link rel="stylesheet" href="css/main.css?v=20">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -172,6 +172,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <i class="grille__dot grille__dot--white" aria-hidden="true"></i><span data-i18n="line.cw">Белый</span>
       </button>
     </div>
+    <a class="btn btn--line line__cta reveal reveal--d3" href="#contact" data-scroll data-i18n="line.cta">Запросить расчёт</a>
   </div>
 </section>
 
@@ -249,6 +250,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg>
         </button>
       </div>
+      <a class="btn btn--line showcase__cta" href="#contact" data-scroll data-i18n="pj.cta">Стать следующим проектом</a>
     </div>
   </div>
 </section>
@@ -270,33 +272,83 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
   </div>
 </section>
 
-<!-- ══════════ 05 ПРОЕКТИРОВАНИЕ ══════════ -->
-<section class="cycle cycle--plain" id="design">
+<!-- ══════════ 05 ПРОЕКТИРОВАНИЕ: чертёжная доска ══════════ -->
+<section class="design" id="design">
   <div class="wrap">
     <p class="tag mono reveal"><i>05</i><span data-i18n="ds.kicker">Проектирование</span></p>
     <h2 class="h2 reveal reveal--d1" data-i18n="ds.h2">Раздел вентиляции&nbsp;— под ваш проект</h2>
     <p class="lead reveal reveal--d2" data-i18n="ds.lead">Считаем воздухообмен под планировки, закладываем скрытые решётки в архитектуру и отдаём документацию, с которой можно строить.</p>
-    <ol class="cycle__list">
-      <li class="crow reveal"><span class="mono">01</span><div><h3 data-i18n="ds1.t">Расчёт</h3><p data-i18n="ds1.x">Воздухообмен, аэродинамика, акустика: подбираем сечения щелей так, чтобы воздух остался тихим.</p></div><span class="crow__meta mono" data-i18n="ds1.m">≤&nbsp;2&nbsp;м/с</span></li>
-      <li class="crow reveal"><span class="mono">02</span><div><h3 data-i18n="ds2.t">Спецификация и смета</h3><p data-i18n="ds2.x">Предварительная спецификация и смета по плану этажа&nbsp;— до старта договора.</p></div><span class="crow__meta mono" data-i18n="ds2.m">48&nbsp;часов</span></li>
-      <li class="crow reveal"><span class="mono">03</span><div><h3 data-i18n="ds3.t">Рабочая документация</h3><p data-i18n="ds3.x">Раздел вентиляции и BIM-семейства Revit&nbsp;— вписываемся в ваш график проектирования.</p></div><span class="crow__meta mono" data-i18n="ds3.m">1&nbsp;день</span></li>
+    <ol class="blueprint">
+      <li class="bp reveal">
+        <span class="bp__num" aria-hidden="true">01</span>
+        <h3 data-i18n="ds1.t">Расчёт</h3>
+        <p data-i18n="ds1.x">Воздухообмен, аэродинамика, акустика: подбираем сечения щелей так, чтобы воздух остался тихим.</p>
+        <span class="bp__meta mono" data-i18n="ds1.m">≤&nbsp;2&nbsp;м/с</span>
+      </li>
+      <li class="bp reveal reveal--d1">
+        <span class="bp__num" aria-hidden="true">02</span>
+        <h3 data-i18n="ds2.t">Спецификация и смета</h3>
+        <p data-i18n="ds2.x">Предварительная спецификация и смета по плану этажа&nbsp;— до подписания договора.</p>
+        <span class="bp__meta mono" data-i18n="ds2.m">48&nbsp;часов</span>
+      </li>
+      <li class="bp reveal reveal--d2">
+        <span class="bp__num" aria-hidden="true">03</span>
+        <h3 data-i18n="ds3.t">Рабочая документация</h3>
+        <p data-i18n="ds3.x">Раздел вентиляции и BIM-семейства Revit&nbsp;— вписываемся в ваш график проектирования.</p>
+        <span class="bp__meta mono" data-i18n="ds3.m">1&nbsp;день</span>
+      </li>
     </ol>
+    <div class="cta-row reveal">
+      <a class="btn btn--line" href="#contact" data-scroll data-i18n="ds.cta">Спецификация за 48 часов</a>
+    </div>
   </div>
 </section>
 
-<!-- ══════════ 06 МОНТАЖ И СЕРВИС ══════════ -->
-<section class="cycle" id="service">
+<!-- ══════════ 06 МОНТАЖ И СЕРВИС: фото-карточки ══════════ -->
+<section class="service" id="service">
   <div class="wrap">
     <p class="tag mono reveal"><i>06</i><span data-i18n="sv.kicker">Монтаж и сервис</span></p>
     <h2 class="h2 reveal reveal--d1" data-i18n="sv.h2">Смонтировали&nbsp;— и остаёмся рядом</h2>
-    <ol class="cycle__list">
-      <li class="crow reveal"><span class="mono">01</span><div><h3 data-i18n="sv1.t">Монтаж и пусконаладка</h3><p data-i18n="sv1.x">Наши бригады: черновой и чистовой этап, балансировка расходов воздуха, сдача по акту. В Ереване&nbsp;— собственная команда.</p></div><span class="crow__meta mono" data-i18n="sv1.m">под&nbsp;ключ</span></li>
-      <li class="crow reveal"><span class="mono">02</span><div><h3 data-i18n="sv2.t">Регламентное обслуживание</h3><p data-i18n="sv2.x">Чистка щелей и решёток, проверка креплений, повторная балансировка&nbsp;— по графику вашего объекта.</p></div><span class="crow__meta mono" data-i18n="sv2.m">по&nbsp;графику</span></li>
-      <li class="crow reveal"><span class="mono">03</span><div><h3 data-i18n="sv3.t">Сервис увлажнения</h3><p data-i18n="sv3.x">Обслуживаем форсуночные системы высокого давления: форсунки, фильтры, автоматика. 40–60&nbsp;% влажности круглый год.</p></div><span class="crow__meta mono">40–60%&nbsp;RH</span></li>
-      <li class="crow reveal"><span class="mono">04</span><div><h3 data-i18n="sv4.t">Гарантия и поддержка</h3><p data-i18n="sv4.x">Гарантия производителя на решётки и выполненный монтаж&nbsp;— и сервисная поддержка после сдачи объекта.</p></div><span class="crow__meta mono" data-i18n="sv4.m">после&nbsp;сдачи</span></li>
-    </ol>
+    <div class="svc">
+      <article class="svc__card reveal">
+        <figure class="svc__pic"><img src="assets/st-install.jpg" alt="Монтажник врезает щелевую решётку" loading="lazy"></figure>
+        <div class="svc__body">
+          <h3 data-i18n="sv1.t">Монтаж и пусконаладка</h3>
+          <p data-i18n="sv1.x">Наши бригады: черновой и чистовой этап, балансировка расходов воздуха, сдача по акту. В Ереване&nbsp;— собственная команда.</p>
+          <span class="mono svc__meta" data-i18n="sv1.m">под&nbsp;ключ</span>
+        </div>
+      </article>
+      <article class="svc__card reveal reveal--d1">
+        <figure class="svc__pic"><img src="assets/st-master.jpg" alt="Мастер обслуживает профиль решётки" loading="lazy"></figure>
+        <div class="svc__body">
+          <h3 data-i18n="sv2.t">Регламентное обслуживание</h3>
+          <p data-i18n="sv2.x">Чистка щелей и решёток, проверка креплений, повторная балансировка&nbsp;— по графику вашего объекта.</p>
+          <span class="mono svc__meta" data-i18n="sv2.m">по&nbsp;графику</span>
+        </div>
+      </article>
+      <article class="svc__card reveal reveal--d1">
+        <figure class="svc__pic"><img src="assets/st-white.jpg" alt="Белая комната с невидимым распределением воздуха" loading="lazy"></figure>
+        <div class="svc__body">
+          <h3 data-i18n="sv3.t">Сервис увлажнения</h3>
+          <p data-i18n="sv3.x">Обслуживаем форсуночные системы высокого давления: форсунки, фильтры, автоматика. 40–60&nbsp;% влажности круглый год.</p>
+          <span class="mono svc__meta">40–60&nbsp;%&nbsp;RH</span>
+        </div>
+      </article>
+      <article class="svc__card reveal reveal--d2">
+        <figure class="svc__pic"><img src="assets/st-factory.jpg" alt="Производственный цех Vent-Line" loading="lazy"></figure>
+        <div class="svc__body">
+          <h3 data-i18n="sv4.t">Гарантия и поддержка</h3>
+          <p data-i18n="sv4.x">Гарантия производителя на решётки и выполненный монтаж&nbsp;— и сервисная поддержка после сдачи объекта.</p>
+          <span class="mono svc__meta" data-i18n="sv4.m">после&nbsp;сдачи</span>
+        </div>
+      </article>
+    </div>
+    <div class="cta-row reveal">
+      <a class="btn btn--gold" href="#contact" data-scroll data-i18n="sv.cta">Обсудить монтаж</a>
+    </div>
   </div>
 </section>
+
 <!-- ══════════ 07 ЕРЕВАН ══════════ -->
 <section class="yerevan" id="yerevan">
   <div class="yerevan__horizon" aria-hidden="true"></div>
@@ -354,7 +406,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
         <li><a href="tel:+74992830865">+7 (499) 283-08-65</a></li>
         <li><a href="mailto:info+322987870@vent-line.ru">info@vent-line.ru</a></li>
       </ul>
-      <p class="contact__note mono reveal reveal--d3" data-i18n="ct.note">пн–пт 9:00–18:00 (Мск) · русский / английский</p>
+      <p class="contact__note mono reveal reveal--d3" data-i18n="ct.note">пн–пт 9:00–18:00 (мск) · русский / английский</p>
     </div>
     <form class="form reveal reveal--d2" id="form">
       <label class="form__field"><span data-i18n="form.name">Имя</span><input type="text" name="name" autocomplete="name" required></label>
@@ -396,7 +448,7 @@ setTimeout(function(){ var p=document.getElementById('preloader'); if(p) p.class
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="js/i18n.js?v=16"></script>
+<script src="js/i18n.js?v=18"></script>
 <script src="js/main.js?v=12"></script>
 <script type="module" src="js/scene.js?v=10"></script>
 </body>

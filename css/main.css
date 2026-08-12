@@ -61,8 +61,14 @@ html[data-theme="light"]{
 }
 @font-face{
   font-family:"Mardoto";
+  src:url("../assets/fonts/mardoto-thin.woff2") format("woff2");
+  font-weight:100 250;font-style:normal;font-display:swap;
+  unicode-range:U+0530-058F,U+FB13-FB17;
+}
+@font-face{
+  font-family:"Mardoto";
   src:url("../assets/fonts/mardoto-light.woff2") format("woff2");
-  font-weight:200 300;font-style:normal;font-display:swap;
+  font-weight:260 340;font-style:normal;font-display:swap;
   unicode-range:U+0530-058F,U+FB13-FB17;
 }
 @font-face{
@@ -78,7 +84,7 @@ html[data-theme="light"]{
   unicode-range:U+0530-058F,U+FB13-FB17;
 }
 html[lang="hy"]{
-  --disp:"Montserrat Armenian","Unbounded",system-ui,sans-serif;
+  --disp:"Mardoto","Montserrat Armenian","Unbounded",system-ui,sans-serif;
   --text:"Mardoto","Jost",system-ui,sans-serif;
   --mono:"JetBrains Mono","Mardoto",ui-monospace,monospace;
 }
@@ -88,8 +94,15 @@ html[lang="hy"] .mono,
 html[lang="hy"] .menu__nav a,
 html[lang="hy"] .hero__title,
 html[lang="hy"] .showcase__name,
-html[lang="hy"] .crow h3,
+html[lang="hy"] .svc__body h3,
+html[lang="hy"] .bp h3,
 html[lang="hy"] .yerevan__title{text-transform:none}
+/* армянские заголовки: тонкие веса Mardoto + воздух, чтобы не выглядело громоздко */
+html[lang="hy"] .hero__title{letter-spacing:.045em;font-size:clamp(24px,4.1vw,56px)}
+html[lang="hy"] .h2{letter-spacing:.02em}
+html[lang="hy"] .showcase__name{letter-spacing:.05em;font-size:clamp(22px,3.2vw,46px)}
+html[lang="hy"] .svc__body h3,
+html[lang="hy"] .bp h3{letter-spacing:.06em}
 
 /* кино-главы всегда тёмные — в обеих темах: hero, тишина, контакт, футер */
 .hero,.silence,.contact,.footer{
@@ -501,6 +514,8 @@ html[data-theme="light"] .mosaic__item:hover{box-shadow:0 0 0 1px var(--hair-gol
 .showcase__btn:hover{color:var(--gold-hi);border-color:var(--gold)}
 .showcase__btn svg{width:17px;height:17px}
 .showcase__btn[disabled]{opacity:.35;pointer-events:none}
+.showcase__cta{flex:none}
+.line__cta{margin-top:26px;pointer-events:auto}
 
 /* ── живая лента: медленная бегущая полоса кадров ─────────────── */
 .strip{padding:clamp(70px,10vh,110px) 0 clamp(80px,11vh,130px);overflow:hidden}
@@ -550,26 +565,65 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
 .specs dt i{font-style:normal;font-size:.62em;color:var(--gold);letter-spacing:.04em}
 .specs dd{margin-top:9px;font-size:13px;letter-spacing:.03em;color:var(--dim)}
 
-/* ── 05 серии: витрины ────────────────────────────────────────── */
-/* ── 06 цикл ──────────────────────────────────────────────────── */
-.cycle{padding:clamp(90px,13vh,170px) 0;background:var(--pane)}
-.cycle--plain{background:transparent}
-.cycle .lead{margin-bottom:clamp(10px,2vh,18px)}
-.cycle__list{margin-top:clamp(40px,6vh,60px)}
-.crow{
-  display:grid;grid-template-columns:64px 1fr auto;gap:clamp(16px,3vw,44px);
-  align-items:start;
-  padding:clamp(24px,3.6vh,34px) 0;border-top:1px solid var(--hair);
+/* ── 05 проектирование: чертёжная доска ───────────────────────── */
+.design{position:relative;padding:clamp(90px,13vh,170px) 0}
+.design::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
+  background-image:linear-gradient(var(--hair) 1px,transparent 1px),
+    linear-gradient(90deg,var(--hair) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent);
 }
-.crow:last-child{border-bottom:1px solid var(--hair)}
-.crow > .mono{color:var(--gold);padding-top:6px}
-.crow__meta{color:var(--faint);font-size:9.5px;padding-top:8px;white-space:nowrap}
-.crow h3{
-  font-family:var(--disp);font-weight:300;font-size:clamp(15px,1.5vw,20px);
-  letter-spacing:.08em;text-transform:uppercase;
+.design .wrap{position:relative}
+.blueprint{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(24px,3.4vw,48px);
+  margin-top:clamp(44px,6vh,64px);
 }
-.crow p{margin-top:10px;font-size:15px;line-height:1.7;color:var(--dim);max-width:62ch}
-.cycle__note{margin-top:clamp(30px,4vh,44px);color:var(--faint);font-size:9.5px}
+.bp{border-left:1px solid var(--hair-gold);padding-left:clamp(18px,1.8vw,26px)}
+.bp__num{
+  display:block;font-family:var(--disp);font-weight:200;line-height:1;
+  font-size:clamp(44px,4.8vw,68px);
+  color:transparent;-webkit-text-stroke:1px var(--gold);
+  margin-bottom:18px;
+}
+@supports not (-webkit-text-stroke:1px #000){.bp__num{color:var(--faint)}}
+.bp h3{
+  font-family:var(--disp);font-weight:300;text-transform:uppercase;
+  font-size:14px;letter-spacing:.1em;margin-bottom:12px;
+}
+.bp p{font-size:14px;color:var(--dim)}
+.bp__meta{display:block;margin-top:14px;color:var(--gold)}
+.cta-row{margin-top:clamp(38px,5.5vh,56px)}
+
+/* ── 06 монтаж и сервис: фото-карточки ────────────────────────── */
+.service{padding:clamp(90px,13vh,170px) 0;background:var(--pane)}
+.svc{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(16px,2.2vw,28px);
+  margin-top:clamp(44px,6vh,64px);
+}
+.svc__card{
+  display:flex;gap:clamp(16px,1.8vw,24px);align-items:flex-start;
+  background:var(--void);border-radius:4px;
+  padding:clamp(16px,1.8vw,24px);
+  box-shadow:0 0 0 1px var(--hair);
+  transition:box-shadow .45s var(--ease);
+}
+.svc__card:hover{box-shadow:0 0 0 1px var(--hair-gold),0 22px 60px -28px rgba(201,169,106,.25)}
+.svc__pic{
+  flex:none;width:clamp(96px,10vw,132px);aspect-ratio:1;
+  border-radius:3px;overflow:hidden;margin:0;
+}
+.svc__pic img{width:100%;height:100%;object-fit:cover;filter:var(--img-filter);transition:transform .9s var(--ease)}
+.svc__card:hover .svc__pic img{transform:scale(1.06)}
+.svc__body h3{
+  font-family:var(--disp);font-weight:300;text-transform:uppercase;
+  font-size:14px;letter-spacing:.08em;margin-bottom:10px;
+}
+.svc__body p{font-size:13.5px;color:var(--dim)}
+.svc__meta{display:block;margin-top:12px;color:var(--gold)}
 
 /* ── 07 Ереван ────────────────────────────────────────────────── */
 .yerevan{position:relative;overflow:hidden;padding:clamp(110px,15vh,190px) 0}
@@ -673,7 +727,8 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
 @media (max-width:1023px){
   .header__nav{display:none}
   .burger{display:block}
-  .series__grid{grid-template-columns:1fr 1fr}
+  .blueprint{grid-template-columns:1fr}
+  .svc{grid-template-columns:1fr}
   .contact__grid{grid-template-columns:1fr}
   .manifest__facts{grid-template-columns:repeat(2,auto);gap:26px}
   .yerevan__rows li{grid-template-columns:1fr;gap:4px}
@@ -687,9 +742,7 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
   .hero__cta{flex-direction:column;align-items:stretch;gap:12px}
   .hero__meta-r{display:none}
   .mosaic{column-count:2}
-  .series__grid{grid-template-columns:1fr}
-  .crow{grid-template-columns:40px 1fr}
-  .crow__meta{display:none}
+  .svc{grid-template-columns:1fr}
   .line{min-height:0;padding-bottom:72vw}
   .line__list{max-width:none}
   .line__facts{display:none}
