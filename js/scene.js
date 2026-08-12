@@ -192,7 +192,9 @@ function layout(){
     camera.position.set(0, 0.4, 8.0);
     camera.lookAt(0.6, -0.15, 0);
     group.rotation.set(-0.09, -0.05, 0);
-    group.position.set(4.0, -0.35, 0);
+    /* планшетные пропорции (0.9–1.45): экран уже — уводим модель правее,
+       чтобы она не ложилась на колонку спецификации */
+    group.position.set(camera.aspect < 1.45 ? 4.7 : 4.0, -0.35, 0);
   }
   render();
 }

@@ -20,7 +20,7 @@
   --img-filter:brightness(.92);
   --veil:linear-gradient(180deg,rgba(7,8,11,.62) 0%,rgba(7,8,11,.44) 45%,rgba(7,8,11,.88) 100%);
   --plinth:#F3F1EC;
-  --header-bg:rgba(7,8,11,.94);
+  --header-bg:rgba(7,8,11,.97);
   --disp:"Unbounded",system-ui,sans-serif;
   --text:"Jost",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,monospace;
@@ -46,7 +46,7 @@ html[data-theme="light"]{
   --img-filter:none;
   --veil:linear-gradient(180deg,rgba(237,234,226,.86) 0%,rgba(237,234,226,.62) 45%,rgba(237,234,226,.95) 100%);
   --plinth:#F7F5EF;
-  --header-bg:rgba(237,234,226,.95);
+  --header-bg:rgba(237,234,226,.97);
 }
 
 /* армянская версия: Unbounded/Jost не содержат армянской письменности.
@@ -319,7 +319,7 @@ html.js.is-booted .hline:nth-child(2) .hline__in{transition-delay:.15s}
 .hero__sub{max-width:46ch;color:var(--dim);font-size:clamp(15px,1.2vw,17px)}
 .hero__cta{display:flex;gap:14px;flex-wrap:wrap}
 .hero__meta{
-  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  position:absolute;left:0;right:0;bottom:0;z-index:2;overflow:hidden;
   max-width:var(--wrap);margin:0 auto;
   padding:14px var(--gutter) 22px;
   display:flex;justify-content:space-between;gap:20px;
@@ -469,7 +469,7 @@ html[data-theme="light"] .mosaic__item:hover{box-shadow:0 0 0 1px var(--hair-gol
 }
 .showcase__track::-webkit-scrollbar{display:none}
 .showcase__slide{
-  position:relative;flex:0 0 100%;scroll-snap-align:start;
+  position:relative;flex:0 0 100%;scroll-snap-align:start;background:var(--pane);
   height:clamp(380px,68vh,640px);overflow:hidden;
 }
 .showcase__slide img{
@@ -734,6 +734,16 @@ html.js .tl.is-in .tl__dot::after,html:not(.js) .tl__dot::after{opacity:1}
 }
 
 /* ── адаптив ──────────────────────────────────────────────────── */
+@media (max-width:1024px){
+  .line{min-height:0;padding-bottom:96vw}
+  .line__list{max-width:none}
+  /* фолбэк-рендер без WebGL — в нижнюю резерв-полосу, а не поверх таблицы */
+  .line__fallback{top:auto;bottom:4vw;right:auto;left:50%;transform:translateX(-50%);width:min(92vw,560px)}
+}
+@media (min-width:1025px){
+  /* на десктопных пропорциях луч 61% ложился на подзаголовок hero */
+  .hero__beam{top:auto;bottom:21%}
+}
 @media (max-width:1023px){
   .header__nav{display:none}
   .burger{display:block}
@@ -752,20 +762,18 @@ html.js .tl.is-in .tl__dot::after,html:not(.js) .tl__dot::after{opacity:1}
   .yerevan__rows li{grid-template-columns:1fr;gap:4px}
 }
 @media (max-width:640px){
+  .header__inner{gap:12px}
+  .header__side{gap:10px}
+  .lang__btn{padding:8px 4px}
+  .showcase__cta{flex:1 1 100%;min-width:0;white-space:normal}
   .mosaic{column-count:1}
   .showcase__bar{flex-wrap:wrap}
   .showcase__progress{order:3;flex-basis:100%}
   .hero__title{font-size:clamp(20px,6.4vw,30px)}
   .hero__base{flex-direction:column;align-items:stretch}
   .hero__cta{flex-direction:column;align-items:stretch;gap:12px}
-  .hero__meta-r{display:none}
-  .mosaic{column-count:2}
-  .line{min-height:0;padding-bottom:96vw}
-  .line__list{max-width:none}
-  .line__facts{display:none}
   .footer__inner{flex-direction:column;gap:20px}
   .form .btn{align-self:stretch}
-  .line__facts span:nth-child(2){display:none}
 }
 
 /* ── reduced motion ───────────────────────────────────────────── */
@@ -775,4 +783,8 @@ html.js .tl.is-in .tl__dot::after,html:not(.js) .tl__dot::after{opacity:1}
   html.js .reveal{opacity:1;transform:none}
   html.js .hline__in{transform:none}
   #air-canvas{display:none}
+}
+
+@media (max-width:480px){
+  .header__wordmark{display:none}
 }
