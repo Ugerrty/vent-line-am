@@ -94,14 +94,14 @@ html[lang="hy"] .mono,
 html[lang="hy"] .menu__nav a,
 html[lang="hy"] .hero__title,
 html[lang="hy"] .showcase__name,
-html[lang="hy"] .svc__body h3,
+html[lang="hy"] .tl h3,
 html[lang="hy"] .bp h3,
 html[lang="hy"] .yerevan__title{text-transform:none}
 /* армянские заголовки: тонкие веса Mardoto + воздух, чтобы не выглядело громоздко */
 html[lang="hy"] .hero__title{letter-spacing:.045em;font-size:clamp(24px,4.1vw,56px)}
 html[lang="hy"] .h2{letter-spacing:.02em}
 html[lang="hy"] .showcase__name{letter-spacing:.05em;font-size:clamp(22px,3.2vw,46px)}
-html[lang="hy"] .svc__body h3,
+html[lang="hy"] .tl h3,
 html[lang="hy"] .bp h3{letter-spacing:.06em}
 
 /* кино-главы всегда тёмные — в обеих темах: hero, тишина, контакт, футер */
@@ -599,32 +599,42 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
 
 /* ── 06 монтаж и сервис: фото-карточки ────────────────────────── */
 .service{padding:clamp(90px,13vh,170px) 0;background:var(--pane)}
-.svc{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:clamp(16px,2.2vw,28px);
-  margin-top:clamp(44px,6vh,64px);
+/* сервис — золотая линия времени: договор продолжается после сдачи */
+.timeline{position:relative;margin-top:clamp(52px,7vh,80px);padding-top:9px}
+.timeline::before{
+  content:"";position:absolute;left:0;right:0;top:8px;height:1px;
+  background:linear-gradient(90deg,var(--gold-deep),var(--gold) 55%,transparent 99%);
+  box-shadow:0 0 20px rgba(201,169,106,.3);
+  transform:scaleX(0);transform-origin:left center;
 }
-.svc__card{
-  display:flex;gap:clamp(16px,1.8vw,24px);align-items:flex-start;
-  background:var(--void);border-radius:4px;
-  padding:clamp(16px,1.8vw,24px);
-  box-shadow:0 0 0 1px var(--hair);
-  transition:box-shadow .45s var(--ease);
+html.js .timeline.is-in::before,html:not(.js) .timeline::before{
+  transform:scaleX(1);transition:transform 1.7s var(--ease-io) .15s;
 }
-.svc__card:hover{box-shadow:0 0 0 1px var(--hair-gold),0 22px 60px -28px rgba(201,169,106,.25)}
-.svc__pic{
-  flex:none;width:clamp(96px,10vw,132px);aspect-ratio:1;
-  border-radius:3px;overflow:hidden;margin:0;
+.timeline__cont{
+  position:absolute;right:0;top:-26px;color:var(--faint);
 }
-.svc__pic img{width:100%;height:100%;object-fit:cover;filter:var(--img-filter);transition:transform .9s var(--ease)}
-.svc__card:hover .svc__pic img{transform:scale(1.06)}
-.svc__body h3{
+.timeline__row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(20px,2.6vw,44px);
+}
+.tl{position:relative;padding-top:44px}
+.tl__dot{
+  position:absolute;left:1px;top:8px;transform:translateY(-50%);
+  width:15px;height:15px;border-radius:50%;
+  border:1px solid var(--gold);background:var(--pane);
+}
+.tl__dot::after{
+  content:"";position:absolute;inset:4px;border-radius:50%;
+  background:var(--gold);opacity:0;transition:opacity .6s var(--ease);
+}
+html.js .tl.is-in .tl__dot::after,html:not(.js) .tl__dot::after{opacity:1}
+.tl__meta{display:block;color:var(--gold);margin-bottom:14px}
+.tl h3{
   font-family:var(--disp);font-weight:300;text-transform:uppercase;
-  font-size:14px;letter-spacing:.08em;margin-bottom:10px;
+  font-size:14px;letter-spacing:.08em;margin-bottom:12px;
 }
-.svc__body p{font-size:13.5px;color:var(--dim)}
-.svc__meta{display:block;margin-top:12px;color:var(--gold)}
-
+.tl p{font-size:13.5px;color:var(--dim)}
+.service .cta-row{margin-top:clamp(40px,6vh,60px)}
 /* ── 07 Ереван ────────────────────────────────────────────────── */
 .yerevan{position:relative;overflow:hidden;padding:clamp(110px,15vh,190px) 0}
 .yerevan__horizon{
@@ -728,7 +738,15 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
   .header__nav{display:none}
   .burger{display:block}
   .blueprint{grid-template-columns:1fr}
-  .svc{grid-template-columns:1fr}
+  .timeline::before{left:7px;right:auto;top:0;bottom:0;width:1px;height:auto;
+    background:linear-gradient(180deg,var(--gold-deep),var(--gold) 55%,transparent 99%);
+    transform:scaleY(0);transform-origin:top center}
+  html.js .timeline.is-in::before,html:not(.js) .timeline::before{transform:scaleY(1)}
+  .timeline{padding-top:0}
+  .timeline__row{grid-template-columns:1fr;gap:36px}
+  .tl{padding-top:0;padding-left:42px}
+  .tl__dot{left:8px;top:5px;transform:translateX(-50%)}
+  .timeline__cont{display:none}
   .contact__grid{grid-template-columns:1fr}
   .manifest__facts{grid-template-columns:repeat(2,auto);gap:26px}
   .yerevan__rows li{grid-template-columns:1fr;gap:4px}
@@ -742,7 +760,6 @@ html[data-theme="light"] .strip__item{box-shadow:0 1px 0 rgba(24,22,16,.05),0 18
   .hero__cta{flex-direction:column;align-items:stretch;gap:12px}
   .hero__meta-r{display:none}
   .mosaic{column-count:2}
-  .svc{grid-template-columns:1fr}
   .line{min-height:0;padding-bottom:72vw}
   .line__list{max-width:none}
   .line__facts{display:none}
