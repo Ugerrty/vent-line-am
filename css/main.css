@@ -62,29 +62,29 @@ html[data-theme="light"]{
 @font-face{
   font-family:"Mardoto";
   src:url("../assets/fonts/mardoto-thin.woff2") format("woff2");
-  font-weight:100 250;font-style:normal;font-display:swap;
+  font-weight:100 250;font-style:normal;font-display:block;
   unicode-range:U+0530-058F,U+FB13-FB17;
 }
 @font-face{
   font-family:"Mardoto";
   src:url("../assets/fonts/mardoto-light.woff2") format("woff2");
-  font-weight:260 340;font-style:normal;font-display:swap;
+  font-weight:260 340;font-style:normal;font-display:block;
   unicode-range:U+0530-058F,U+FB13-FB17;
 }
 @font-face{
   font-family:"Mardoto";
   src:url("../assets/fonts/mardoto-regular.woff2") format("woff2");
-  font-weight:400;font-style:normal;font-display:swap;
+  font-weight:400;font-style:normal;font-display:block;
   unicode-range:U+0530-058F,U+FB13-FB17;
 }
 @font-face{
   font-family:"Mardoto";
   src:url("../assets/fonts/mardoto-medium.woff2") format("woff2");
-  font-weight:500;font-style:normal;font-display:swap;
+  font-weight:500;font-style:normal;font-display:block;
   unicode-range:U+0530-058F,U+FB13-FB17;
 }
 html[lang="hy"]{
-  --disp:"Mardoto","Montserrat Armenian","Unbounded",system-ui,sans-serif;
+  --disp:"Mardoto","Unbounded",system-ui,sans-serif;
   --text:"Mardoto","Jost",system-ui,sans-serif;
   --mono:"JetBrains Mono","Mardoto",ui-monospace,monospace;
 }
@@ -788,3 +788,29 @@ html.js .tl.is-in .tl__dot::after,html:not(.js) .tl__dot::after{opacity:1}
 @media (max-width:480px){
   .header__wordmark{display:none}
 }
+
+/* ── светлая тема: «галерея при дневном свете» ─────────────────── */
+/* тёплые световые пятна — как солнце на камне; у каждой секции свой угол */
+html[data-theme="light"] .manifest{background-image:radial-gradient(1100px 480px at 84% -8%,rgba(176,141,79,.14),transparent 62%)}
+html[data-theme="light"] .line{background-image:radial-gradient(950px 440px at 76% 6%,rgba(176,141,79,.13),transparent 60%)}
+html[data-theme="light"] .projects{background-image:radial-gradient(1100px 520px at 10% -6%,rgba(176,141,79,.11),transparent 60%)}
+html[data-theme="light"] .design{background-image:radial-gradient(1000px 460px at 88% 0%,rgba(176,141,79,.11),transparent 60%)}
+html[data-theme="light"] .service{background-image:radial-gradient(1100px 500px at 14% -8%,rgba(176,141,79,.14),transparent 62%)}
+html[data-theme="light"] .yerevan{background-image:radial-gradient(1200px 560px at 50% -12%,rgba(176,141,79,.16),transparent 64%)}
+/* чертёжная сетка в светлой теме должна шептать, а не кричать */
+html[data-theme="light"] .design::before{opacity:.16}
+/* латунные кромки вокруг тёмных кино-глав — как рамы тёмных залов галереи */
+html[data-theme="light"] .hero{box-shadow:inset 0 -1px 0 rgba(176,141,79,.55)}
+html[data-theme="light"] .silence{box-shadow:inset 0 1px 0 rgba(176,141,79,.55),inset 0 -1px 0 rgba(176,141,79,.55)}
+html[data-theme="light"] .contact{box-shadow:inset 0 1px 0 rgba(176,141,79,.55)}
+/* золотая нить сервиса — глубже и с тёплой тенью */
+html[data-theme="light"] .timeline::before{
+  background:linear-gradient(90deg,#8A6D33,#B99055 55%,transparent 99%);
+  box-shadow:0 1px 8px rgba(138,109,51,.35);
+}
+html[data-theme="light"] .tl__dot{background:var(--void)}
+/* витрина-цитата и призрачные номера — плотнее на светлом */
+html[data-theme="light"] .showcase__quote em{color:#8A6D33}
+html[data-theme="light"] .bp__num{-webkit-text-stroke:1px #8A6D33}
+/* формы: поля с тёплой подложкой, а не бесцветные */
+html[data-theme="light"] .strip__item{background:#DFDACE}

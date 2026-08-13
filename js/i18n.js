@@ -164,6 +164,24 @@ function pick(lang, key){
 
 function setLang(lang){
   if (lang !== 'ru' && !DICT[lang]) lang = 'ru';
+  /* армянский включаем только с готовым Mardoto — никакой вспышки
+     системного шрифта ни при загрузке, ни при переключении кнопкой */
+  if (lang === 'hy' && document.fonts && document.fonts.load) {
+    var applied = false;
+    var go = function(){ if (!applied) { applied = true; applyLang(lang); } };
+    Promise.all([
+      document.fonts.load('200 1em Mardoto', 'ա'),
+      document.fonts.load('300 1em Mardoto', 'ա'),
+      document.fonts.load('400 1em Mardoto', 'ա'),
+      document.fonts.load('500 1em Mardoto', 'ա')
+    ]).then(go, go);
+    setTimeout(go, 900);
+    return;
+  }
+  applyLang(lang);
+}
+
+function applyLang(lang){
   snapshotRu();
   document.documentElement.lang = lang;
   var t = pick(lang, 'title'); if (t) document.title = t;
